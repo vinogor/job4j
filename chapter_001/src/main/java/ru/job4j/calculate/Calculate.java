@@ -4,7 +4,7 @@ package ru.job4j.calculate;
 * Print specified word three times.
 *
  * @author Andreev Aleksandr (andreev.aleksandr.spb@gmail.com)
- * @version $Id$
+ * @version 1
  * @since 21.05.2019
 */
 public class Calculate {
