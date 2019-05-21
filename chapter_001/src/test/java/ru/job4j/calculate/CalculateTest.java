@@ -4,10 +4,14 @@ import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
-
+/**
+ * Test.
+ *
+ * @author Andreev Aleksandr (andreev.aleksandr.spb@gmail.com)
+ * @version 1
+ * @since 21.05.2019
+ */
 public class CalculateTest {
-   
-   // название методов по маске when ... then ...
    
    @Test
 	public void whenSetStopInEchoThenReturnThreeStops() {
