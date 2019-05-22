@@ -34,7 +34,7 @@ public class CalculatorTest {
     @Test
     public void whenAddTwoMultipleTwoThenFour() {
         Calculator calc = new Calculator();
-        double result = calc.add(2D, 2D);
+        double result = calc.multiple(2D, 2D);
         double expected = 4D;
         assertThat(result, is(expected));
     }
