@@ -1,6 +1,7 @@
 package ru.job4j.calculate;
 
 import org.junit.Test;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
@@ -12,18 +13,18 @@ import static org.junit.Assert.*;
  * @since 21.05.2019
  */
 public class CalculateTest {
-   
-   @Test
-	public void whenSetStopInEchoThenReturnThreeStops() {
-		Calculate calc = new Calculate();
-		String result = calc.echo("stop");
-		assertThat(result, is("stop stop stop"));
-	}
 
-   @Test
-	public void whenSetNullInEchoThenReturnTwoSpaces() {
-		Calculate calc = new Calculate();
-		String result = calc.echo(null);
-		assertThat(result, is("null null null"));
-	}		
+    @Test
+    public void whenSetStopInEchoThenReturnThreeStops() {
+        Calculate calc = new Calculate();
+        String result = calc.echo("stop");
+        assertThat(result, is("stop stop stop"));
+    }
+
+    @Test
+    public void whenSetNullInEchoThenReturnTwoSpaces() {
+        Calculate calc = new Calculate();
+        String result = calc.echo(null);
+        assertThat(result, is("null null null"));
+    }
 }
