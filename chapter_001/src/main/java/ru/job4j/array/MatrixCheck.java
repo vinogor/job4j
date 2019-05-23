@@ -9,19 +9,19 @@ package ru.job4j.array;
  */
 public class MatrixCheck {
 
-    /**
-     * Main calculations.
-     *
-     * @param data input matrix
-     * @return if diagonal is monotone.
-     */
-    public boolean mono(boolean[][] data) {
-        int length = data.length;
-        for (int i = 1; i < length; i++) {
-            if ((data[i - 1][i - 1] != data[i][i]) || (data[i - 1][length - i] != data[i][length - i - 1])) {
-                return false;
-            }
-        }
-        return true;
-    }
+	/**
+	 * Main calculations.
+	 *
+	 * @param data input matrix
+	 * @return if diagonal is monotone.
+	 */
+	public boolean mono(boolean[][] data) {
+		int length = data.length;
+		for (int i = 1; i < length; i++) {
+			if ((data[i - 1][i - 1] != data[i][i]) || (data[i - 1][length - i] != data[i][length - i - 1])) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
