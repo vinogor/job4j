@@ -36,7 +36,7 @@ public class Paint {
         int width = height;
         for (int row = 0; row != height; row++) {
             for (int column = 0; column != width; column++) {
-                if (row >= width- column - 1) {
+                if (row >= width - column - 1) {
                     screen.append("^");
                 } else {
                     screen.append(" ");
@@ -49,7 +49,7 @@ public class Paint {
 
     public String pyramid(int height) {
         StringBuilder screen = new StringBuilder();
-        int width= 2 * height - 1;
+        int width = 2 * height - 1;
         for (int row = 0; row != height; row++) {
             for (int column = 0; column != width; column++) {
                 if (row >= height - column - 1 && row + height - 1 >= column) {
