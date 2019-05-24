@@ -52,7 +52,6 @@ public class Triangle {
         double c = new Point().distance(x1, y1, x3, y3);
         double p = period(a, b, c);
         if (this.exist(a, b, c)) {
-            // написать формулу для расчета площади треугольника.
             rsl = Math.sqrt(p * (p - a) * (p - b) * (p - c));
         }
         return rsl;

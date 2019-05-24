@@ -107,12 +107,10 @@ public class Logic {
 		// ====== 2й вариант: ======
 		// короче и быстрее
 		for (int i = 0; i < len; i++) {
-
 			for (int j = 0; j < len; j++) {
 				if (table[i][j] == 0) break;
 				if (j == len - 1) return true;
 			}
-
 			for (int j = 0; j < len; j++) {
 				if (table[j][i] == 0) break;
 				if (j == len - 1) return true;
