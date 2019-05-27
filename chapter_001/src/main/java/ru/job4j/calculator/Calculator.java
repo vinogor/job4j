@@ -9,47 +9,62 @@ package ru.job4j.calculator;
  */
 public class Calculator {
 
-    /**
-     * Sum.
-     *
-     * @param first  first argument
-     * @param second second argument
-     * @return addition result
-     */
-    public double add(double first, double second) {
-        return first + second;
-    }
+	/**
+	 * Sum of 2 numbers.
+	 *
+	 * @param first  first argument
+	 * @param second second argument
+	 * @return addition result
+	 */
+	public double add(double first, double second) {
+		return first + second;
+	}
 
-    /**
-     * Subtract.
-     *
-     * @param first  first argument
-     * @param second second argument
-     * @return subtraction result
-     */
-    public double subtract(double first, double second) {
-        return first - second;
-    }
+	/**
+	 * Sum of 3 numbers.
+	 *
+	 * @param first  first argument
+	 * @param second second argument
+	 * @param third  third argument
+	 * @return addition result
+	 */
+	public double add(double first, double second, double third) {
+		return add(
+				first,
+				add(second, third)
+		);
+	}
 
-    /**
-     * Division.
-     *
-     * @param first  first argument
-     * @param second second argument
-     * @return division result
-     */
-    public double div(double first, double second) {
-        return first / second;
-    }
+	/**
+	 * Subtract.
+	 *
+	 * @param first  first argument
+	 * @param second second argument
+	 * @return subtraction result
+	 */
+	public double subtract(double first, double second) {
+		return first - second;
+	}
 
-    /**
-     * Multiplication.
-     *
-     * @param first  first argument
-     * @param second second argument
-     * @return multiplication result
-     */
-    public double multiple(double first, double second) {
-        return first * second;
-    }
+	/**
+	 * Division.
+	 *
+	 * @param first  first argument
+	 * @param second second argument
+	 * @return division result
+	 */
+	public double div(double first, double second) {
+		return first / second;
+	}
+
+	/**
+	 * Multiplication.
+	 *
+	 * @param first  first argument
+	 * @param second second argument
+	 * @return multiplication result
+	 */
+	public double multiple(double first, double second) {
+		return first * second;
+	}
 }

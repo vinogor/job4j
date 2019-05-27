@@ -16,6 +16,14 @@ public class CalculatorTest {
     }
 
     @Test
+    public void whenAddOnePlusOnePlusOneThenThree() {
+        Calculator calc = new Calculator();
+        double result = calc.add(1D, 1D, 1D);
+        double expected = 3D;
+        assertThat(result, is(expected));
+    }
+
+    @Test
     public void whenAddTwoSubtractOneThenOne() {
         Calculator calc = new Calculator();
         double result = calc.subtract(2D, 1D);
