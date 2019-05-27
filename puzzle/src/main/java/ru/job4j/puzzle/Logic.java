@@ -73,12 +73,20 @@ public class Logic {
 		int len = table.length;
 		for (int i = 0; i < len; i++) {
 			for (int j = 0; j < len; j++) {
-				if (table[i][j] == 0) break;
-				if (j == len - 1) return true;
+				if (table[i][j] == 0) {
+					break;
+				}
+				if (j == len - 1) {
+					return true;
+				}
 			}
 			for (int j = 0; j < len; j++) {
-				if (table[j][i] == 0) break;
-				if (j == len - 1) return true;
+				if (table[j][i] == 0) {
+					break;
+				}
+				if (j == len - 1) {
+					return true;
+				}
 			}
 		}
 		return false;

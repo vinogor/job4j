@@ -4,7 +4,7 @@ public class AlarmClocks {
 
 		int numOfClocks = nxk[0];
 		int periodOfRinging = nxk[1];
-		int RingsToWakeUp = nxk[2];
+		int ringsToWakeUp = nxk[2];
 
 		int ringCounter = 0;
 		int currentTime = 0;
@@ -17,7 +17,7 @@ public class AlarmClocks {
 					break;
 				}
 			}
-		} while (ringCounter != RingsToWakeUp);
+		} while (ringCounter != ringsToWakeUp);
 		return currentTime;
 	}
 }
