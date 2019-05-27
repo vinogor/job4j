@@ -69,43 +69,8 @@ public class Logic {
 	}
 
 	public boolean isWin() {
-
-		// реализация метода на случай если
-		// 1) размер поля может меняться
-		// 2) кол-во белых фишек не ограничено
-
 		int[][] table = this.convert();
 		int len = table.length;
-
-		// ====== 1й вариант: ======
-
-/*
-		int[] tmpArr = new int[len];   // создали 1мерный массив длиной = длине поля
-		Arrays.fill(tmpArr, 1);   // заполнили массив еденицами
-
-		// проходимся построчно и проверяем
-		if (checkLineByLine(table, len, tmpArr)) {
-			return true;
-		}
-
-		// транпонируем и проверяем ещё раз
-		int[][] transposedTable = new int[len][len];
-
-		for (int i = 0; i < len; ++i) {
-			for (int j = 0; j < len; ++j) {
-				transposedTable[j][i] = table[i][j];
-			}
-		}
-
-		if (checkLineByLine(transposedTable, len, tmpArr)) {
-			return true;
-		}
-
-		return false;
-*/
-
-		// ====== 2й вариант: ======
-		// короче и быстрее
 		for (int i = 0; i < len; i++) {
 			for (int j = 0; j < len; j++) {
 				if (table[i][j] == 0) break;
@@ -114,15 +79,6 @@ public class Logic {
 			for (int j = 0; j < len; j++) {
 				if (table[j][i] == 0) break;
 				if (j == len - 1) return true;
-			}
-		}
-		return false;
-	}
-
-	private boolean checkLineByLine(int[][] table, int len, int[] tmpArr) {
-		for (int i = 0; i < len; i++) {
-			if (Arrays.equals(table[i], tmpArr)) {
-				return true;
 			}
 		}
 		return false;
