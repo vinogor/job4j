@@ -9,12 +9,13 @@ package ru.job4j.tracker;
  */
 public class StartUI {
 
+    private static final String MENU = "0";
     private static final String ADD = "1";
-    private static final String SHOWALL = "2";
+    private static final String SHOW_ALL = "2";
     private static final String EDIT = "3";
     private static final String DEL = "4";
-    private static final String FINDBYID = "5";
-    private static final String FINDBYNAME = "6";
+    private static final String FIND_BY_ID = "5";
+    private static final String FIND_BY_NAME = "6";
     private static final String EXIT = "7";
 
     private final Input input;
@@ -37,8 +38,8 @@ public class StartUI {
      * @param args arguments.
      */
     public static void main(String[] args) {
-//        new StartUI(new ConsoleInput(), new Tracker()).init();
-        new StartUI(new StubInput(new String[]{"1", "name1", "disr1", "7"}), new Tracker()).init();
+        new StartUI(new ConsoleInput(), new Tracker()).init();
+//        new StartUI(new StubInput(new String[]{"1", "name1", "disr1", "7"}), new Tracker()).init();
     }
 
     /**
@@ -47,13 +48,15 @@ public class StartUI {
     public void init() {
         boolean exit = false;
         while (!exit) {
-            this.showMenu();
-            String answer = this.input.ask("Введите пункт меню: ");
+            String answer = this.input.ask("Введите пункт меню (0 = показать меню): ");
             switch (answer) {
+                case MENU:
+                    this.showMenu();
+                    break;
                 case ADD:
                     this.createItem();
                     break;
-                case SHOWALL:
+                case SHOW_ALL:
                     this.showAll();
                     break;
                 case EDIT:
@@ -62,10 +65,10 @@ public class StartUI {
                 case DEL:
                     this.delete();
                     break;
-                case FINDBYID:
+                case FIND_BY_ID:
                     this.findById();
                     break;
-                case FINDBYNAME:
+                case FIND_BY_NAME:
                     this.findByName();
                     break;
                 case EXIT:
@@ -81,16 +84,17 @@ public class StartUI {
      * Show menu.
      */
     private void showMenu() {
-        StringBuilder sb = new StringBuilder();
         String nextLine = System.lineSeparator();
-        sb.append(" - Menu - ").append(nextLine);
-        sb.append("1. Add new Item").append(nextLine);
-        sb.append("2. Show all items").append(nextLine);
-        sb.append("3. Edit item").append(nextLine);
-        sb.append("4. Delete item").append(nextLine);
-        sb.append("5. Find item by Id").append(nextLine);
-        sb.append("6. Find items by name").append(nextLine);
-        sb.append("7. Exit Program").append(nextLine);
+        StringBuilder sb = new StringBuilder()
+        .append(" - Menu - ").append(nextLine)
+        .append("0. Show menu").append(nextLine)
+        .append("1. Add new Item").append(nextLine)
+        .append("2. Show all items").append(nextLine)
+        .append("3. Edit item").append(nextLine)
+        .append("4. Delete item").append(nextLine)
+        .append("5. Find item by Id").append(nextLine)
+        .append("6. Find items by name").append(nextLine)
+        .append("7. Exit Program").append(nextLine);
         System.out.println(sb);
     }
 
