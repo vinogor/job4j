@@ -45,18 +45,17 @@ public class StartUITest {
                 this.out.toString(),
                 is(
                         new StringBuilder()
-                                .append("Введите пункт меню (0 = показать меню): ").append(args[0]).append(nextLine)
-                                .append(" - Menu - ").append(nextLine)
-                                .append("0. Show menu").append(nextLine)
-                                .append("1. Add new Item").append(nextLine)
-                                .append("2. Show all items").append(nextLine)
-                                .append("3. Edit item").append(nextLine)
-                                .append("4. Delete item").append(nextLine)
-                                .append("5. Find item by Id").append(nextLine)
-                                .append("6. Find items by name").append(nextLine)
-                                .append("7. Exit Program").append(nextLine)
-                                .append(nextLine)
-                                .append("Введите пункт меню (0 = показать меню): ").append(args[1]).append(nextLine)
+                                .append("Введите пункт меню (0..7): ").append(args[0]).append(nextLine)
+                                .append("0 - Show menu").append(nextLine)
+                                .append("1 - Add new Item").append(nextLine)
+                                .append("2 - Show all items").append(nextLine)
+                                .append("3 - Edit item").append(nextLine)
+                                .append("4 - Delete item").append(nextLine)
+                                .append("5 - Find item by Id").append(nextLine)
+                                .append("6 - Find items by name").append(nextLine)
+                                .append("7 - Exit Program").append(nextLine)
+                                .append("Введите пункт меню (0..7): ").append(args[1]).append(nextLine)
+                                .append("Завершаем работу программы.").append(nextLine)
                                 .toString()
                 )
         );
@@ -78,13 +77,14 @@ public class StartUITest {
                 this.out.toString(),
                 is(
                         new StringBuilder()
-                                .append("Введите пункт меню (0 = показать меню): ").append(args[0]).append(nextLine)
+                                .append("Введите пункт меню (0..7): ").append(args[0]).append(nextLine)
                                 .append("------------ Вывод содержимого хранилища ----------").append(nextLine)
                                 .append("Item{id='").append(item1.getId()).append("', name='test name1', decs='test desc1', time=").append(item1.getTime()).append("}").append(nextLine)
                                 .append("Item{id='").append(item2.getId()).append("', name='test name2', decs='test desc2', time=").append(item2.getTime()).append("}").append(nextLine)
                                 .append("Item{id='").append(item3.getId()).append("', name='test name3', decs='test desc3', time=").append(item3.getTime()).append("}").append(nextLine)
                                 .append("------------ Конец --------------------------------").append(nextLine)
-                                .append("Введите пункт меню (0 = показать меню): ").append(args[1]).append(nextLine)
+                                .append("Введите пункт меню (0..7): ").append(args[1]).append(nextLine)
+                                .append("Завершаем работу программы.").append(nextLine)
                                 .toString()
                 )
         );
@@ -113,12 +113,13 @@ public class StartUITest {
                 this.out.toString(),
                 is(
                         new StringBuilder()
-                                .append("Введите пункт меню (0 = показать меню): ").append(args[0]).append(nextLine)
+                                .append("Введите пункт меню (0..7): ").append(args[0]).append(nextLine)
                                 .append("------------ Поиск заявки по id -------------------").append(nextLine)
                                 .append("Введите id заявки: ").append(args[1]).append(nextLine)
                                 .append(" Заявка найдена: Item{id='").append(item2.getId()).append("', name='test name2', decs='test desc2', time=").append(item1.getTime()).append("}").append(nextLine)
                                 .append("------------ Конец --------------------------------").append(nextLine)
-                                .append("Введите пункт меню (0 = показать меню): ").append(args[2]).append(nextLine)
+                                .append("Введите пункт меню (0..7): ").append(args[2]).append(nextLine)
+                                .append("Завершаем работу программы.").append(nextLine)
                                 .toString()
                 )
         );
@@ -134,14 +135,15 @@ public class StartUITest {
                 this.out.toString(),
                 is(
                         new StringBuilder()
-                                .append("Введите пункт меню (0 = показать меню): ").append(args[0]).append(nextLine)
+                                .append("Введите пункт меню (0..7): ").append(args[0]).append(nextLine)
                                 .append("------------ Поиск заявок по имени ----------------").append(nextLine)
                                 .append("Введите имя заявки: ").append(args[1]).append(nextLine)
                                 .append(" Заявки найдены: ").append(nextLine)
                                 .append("Item{id='").append(item1.getId()).append("', name='test name1', decs='test desc1', time=").append(item1.getTime()).append("}").append(nextLine)
                                 .append("Item{id='").append(item2.getId()).append("', name='test name1', decs='test desc2', time=").append(item1.getTime()).append("}").append(nextLine)
                                 .append("------------ Конец --------------------------------").append(nextLine)
-                                .append("Введите пункт меню (0 = показать меню): ").append(args[2]).append(nextLine)
+                                .append("Введите пункт меню (0..7): ").append(args[2]).append(nextLine)
+                                .append("Завершаем работу программы.").append(nextLine)
                                 .toString()
                 )
         );
