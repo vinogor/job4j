@@ -11,26 +11,26 @@ import java.util.Arrays;
  */
 public class ArrayDuplicate {
 
-	/**
-	 * Main calculations.
-	 *
-	 * @param array input array.
-	 * @return array without duplicates.
-	 */
-	public String[] remove(String[] array) {
-		int numOfDuplicates = 0;
-		int length = array.length;
-		for (int i = 0; i < length - 1 - numOfDuplicates; i++) {
-			for (int j = i + 1; j < length - numOfDuplicates; j++) {
-				if (array[i].equals(array[j])) {
-					String tmp = array[j];
-					numOfDuplicates++;
-					array[j] = array[length - numOfDuplicates];
-					array[length - numOfDuplicates] = tmp;
-					j--;
-				}
-			}
-		}
-		return Arrays.copyOf(array, length - numOfDuplicates);
-	}
+    /**
+     * Main calculations.
+     *
+     * @param array input array.
+     * @return array without duplicates.
+     */
+    public String[] remove(String[] array) {
+        int numOfDuplicates = 0;
+        int length = array.length;
+        for (int i = 0; i < length - 1 - numOfDuplicates; i++) {
+            for (int j = i + 1; j < length - numOfDuplicates; j++) {
+                if (array[i].equals(array[j])) {
+                    String tmp = array[j];
+                    numOfDuplicates++;
+                    array[j] = array[length - numOfDuplicates];
+                    array[length - numOfDuplicates] = tmp;
+                    j--;
+                }
+            }
+        }
+        return Arrays.copyOf(array, length - numOfDuplicates);
+    }
 }
