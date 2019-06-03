@@ -1,15 +1,14 @@
-package ru.job4j.tracker.menuElements;
+package ru.job4j.tracker.actions;
 
-import ru.job4j.tracker.Input;
+import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.Tracker;
-import ru.job4j.tracker.UserAction;
 
-public class ExitProgram implements UserAction {
+public class ShowMenu implements UserAction {
 
     private int menuNum;
     private String menuInfo;
 
-    public ExitProgram(int menuNum, String menuInfo) {
+    public ShowMenu(int menuNum, String menuInfo) {
         this.menuNum = menuNum;
         this.menuInfo = menuInfo;
     }
