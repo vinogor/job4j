@@ -4,21 +4,12 @@ import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
 
-public class FindAllItem implements UserAction {
-
-    private int menuNum;
-    private String menuInfo;
-
+public class FindAllItem extends BaseAction implements UserAction {
+    
     public FindAllItem(int menuNum, String menuInfo) {
-        this.menuNum = menuNum;
-        this.menuInfo = menuInfo;
+        super(menuNum, menuInfo);
     }
-
-    @Override
-    public int key() {
-        return menuNum;
-    }
-
+    
     @Override
     public void execute(Input input, Tracker tracker) {
         System.out.println("------------ Вывод содержимого хранилища ----------");
@@ -27,10 +18,5 @@ public class FindAllItem implements UserAction {
             System.out.println(item);
         }
         System.out.println("------------ Конец --------------------------------");
-    }
-
-    @Override
-    public String info() {
-        return menuInfo;
     }
 }

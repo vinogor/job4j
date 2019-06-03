@@ -31,16 +31,20 @@ public class MenuTracker {
     public int getActionsLength() {
         return this.actions.size();
     }
+    
+    public void addAction(UserAction action) {
+        this.actions.add(action);
+    }
 
-    public void fillActions() {
-        this.actions.add(new ShowMenu(0, "Show menu")); // не испольхуется
+    public void fillActions(StartUI ui) {
+        this.actions.add(new ShowMenu(0, "Show menu", this));
         this.actions.add(new AddItem(1, "Add new Item"));
         this.actions.add(new FindAllItem(2, "Show all items"));
         this.actions.add(new UpdateItem(3, "Edit item"));
         this.actions.add(new DeleteItem(4, "Delete item"));
         this.actions.add(new FindByIdItem(5, "Find item by Id"));
         this.actions.add(new FindByNameItem(6, "Find items by name"));
-        this.actions.add(new ExitProgram(7, "Exit Program"));
+        this.actions.add(new ExitProgram(7, "Exit Program", ui));
     }
 
     /**

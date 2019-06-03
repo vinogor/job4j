@@ -2,7 +2,6 @@ package ru.job4j.tracker;
 
 import ru.job4j.tracker.input.ConsoleInput;
 import ru.job4j.tracker.input.Input;
-import ru.job4j.tracker.input.StubInput;
 import ru.job4j.tracker.input.ValidateInput;
 
 /**
@@ -17,6 +16,7 @@ public class StartUI {
     private final Input input;
     private final Tracker tracker;
     
+    private boolean doContinueWork = true;
     private int[] range;
     
     /**
@@ -36,8 +36,8 @@ public class StartUI {
      * @param args arguments.
      */
     public static void main(String[] args) {
-        new StartUI(new ValidateInput(new StubInput(new String[]{"invalid", "7"})), new Tracker()).init();
-//        new StartUI(new ValidateInput(new ConsoleInput()), new Tracker()).init();
+        new StartUI(new ValidateInput(new ConsoleInput()), new Tracker()).init();
+//        new StartUI(new ValidateInput(new StubInput(new String[]{"invalid", "7"})), new Tracker()).init();
 //        new StartUI(new ConsoleInput(), new Tracker()).init();
 //        new StartUI(new StubInput(new String[]{"1", "name1", "disr1", "7"}), new Tracker()).init();
     }
@@ -47,21 +47,19 @@ public class StartUI {
      */
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
-        menu.fillActions();
+        menu.fillActions(this);
+        
         fillRange(menu);
         
         int key;
         do {
             key = input.ask("Введите пункт меню (0.." + (menu.getActionsLength() - 1) + "): ", range);
-            if (key == 0) {
-                menu.show();
-            } else if (key == 7) {
-                System.out.println("Завершаем работу программы.");
-                break;
-            } else {
-                menu.select(key);
-            }
-        } while (true);
+            menu.select(key);
+        } while (this.doContinueWork);
+    }
+    
+    public void stop() {
+        this.doContinueWork = false;
     }
     
     private void fillRange(MenuTracker menu) {
@@ -71,4 +69,24 @@ public class StartUI {
             range[i] = i;
         }
     }
+    
+//    ОТКЛЮЧИЛ ПОКА ЧТОБЫ НЕ ПЕРЕДЕЛЫВАТЬ ТЕСТЫ - пример анонимного класса
+//
+//        UserAction deleteAction = new UserAction() {
+//            @Override
+//            public int key() {
+//                return 8;
+//            }
+//
+//            @Override
+//            public void execute(Input input, Tracker tracker) {
+//                // todo
+//            }
+//
+//            @Override
+//            public String info() {
+//                return "Delete All";
+//            }
+//        };
+//        menu.addAction(deleteAction);
 }

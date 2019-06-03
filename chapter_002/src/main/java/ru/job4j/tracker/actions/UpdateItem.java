@@ -4,22 +4,12 @@ import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
 
-public class UpdateItem implements UserAction {
-
-    private int menuNum;
-    private String menuInfo;
-
+public class UpdateItem extends BaseAction implements UserAction {
+    
     public UpdateItem(int menuNum, String menuInfo) {
-        this.menuNum = menuNum;
-        this.menuInfo = menuInfo;
+        super(menuNum, menuInfo);
     }
-
-
-    @Override
-    public int key() {
-        return menuNum;
-    }
-
+    
     @Override
     public void execute(Input input, Tracker tracker) {
         System.out.println("------------ Изменение имеющейся заявки -----------");
@@ -34,10 +24,5 @@ public class UpdateItem implements UserAction {
             System.out.println(" Заявки с таким id не найдено ");
         }
         System.out.println("------------ Конец --------------------------------");
-    }
-
-    @Override
-    public String info() {
-        return menuInfo;
     }
 }
