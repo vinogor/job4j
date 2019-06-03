@@ -1,6 +1,8 @@
 package ru.job4j.tracker;
 
+import ru.job4j.tracker.input.ConsoleInput;
 import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.input.StubInput;
 import ru.job4j.tracker.input.ValidateInput;
 
 /**
@@ -34,7 +36,8 @@ public class StartUI {
      * @param args arguments.
      */
     public static void main(String[] args) {
-        new StartUI(new ValidateInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(new StubInput(new String[]{"invalid", "7"})), new Tracker()).init();
+//        new StartUI(new ValidateInput(new ConsoleInput()), new Tracker()).init();
 //        new StartUI(new ConsoleInput(), new Tracker()).init();
 //        new StartUI(new StubInput(new String[]{"1", "name1", "disr1", "7"}), new Tracker()).init();
     }

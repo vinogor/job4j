@@ -1,6 +1,6 @@
 package ru.job4j.tracker.input;
 
-import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.MenuOutException;
 
 public class StubInput implements Input {
     /**
@@ -39,6 +39,18 @@ public class StubInput implements Input {
     @Override
     public int ask(String question, int[] range) {
 //        throw new UnsupportedOperationException("Unsupported operation");
-        return -1;
+        int key = Integer.valueOf(this.ask(question));
+        boolean exist = false;
+        for (int value : range) {
+            if (value == key) {
+                exist = true;
+                break;
+            }
+        }
+        if (exist) {
+            return key;
+        } else {
+            throw new MenuOutException("Out of menu range");
+        }
     }
 }
