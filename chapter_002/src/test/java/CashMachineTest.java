@@ -12,32 +12,32 @@ public class CashMachineTest {
         List<List<Integer>> result = machine.exchange(1);
         assertThat(result, is(singletonList(singletonList(1))));
     }
-    
+
     @Test
     public void five() {
         CashMachine machine = new CashMachine(new int[] {1, 5, 10});
         List<List<Integer>> result = machine.exchange(5);
         assertThat(result, is(
-            asList(
-                asList(1, 1, 1, 1, 1),
-                asList(5)
-            )
+                asList(
+                        asList(1, 1, 1, 1, 1),
+                        asList(5)
+                )
         ));
     }
-    
+
     @Test
     public void change() {
         CashMachine machine = new CashMachine(new int[] {10, 5, 1});
         List<List<Integer>> result = machine.exchange(10);
         assertThat(
-            result, is(
-                asList(
-                    singletonList(10),
-                    asList(5, 5),
-                    asList(1, 1, 1, 1, 1, 5),
-                    asList(1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+                result, is(
+                        asList(
+                                singletonList(10),
+                                asList(5, 5),
+                                asList(1, 1, 1, 1, 1, 5),
+                                asList(1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+                        )
                 )
-            )
         );
     }
 }
