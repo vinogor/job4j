@@ -51,4 +51,31 @@ public class ConvertList2ArrayTest {
         };
         assertThat(result, is(expect));
     }
+
+    @Test
+    public void test1() {
+        ConvertList2Array list = new ConvertList2Array();
+        int[][] result = list.toArray(
+                Arrays.asList(),
+                2
+        );
+        int[][] expect = {
+                {},
+                {}
+        };
+        assertThat(result, is(expect));
+    }
+
+    @Test
+    public void test2() {
+        ConvertList2Array list = new ConvertList2Array();
+        int[][] result = list.toArray(
+                Arrays.asList(),
+                1
+        );
+        int[][] expect = {
+                {}
+        };
+        assertThat(result, is(expect));
+    }
 }
