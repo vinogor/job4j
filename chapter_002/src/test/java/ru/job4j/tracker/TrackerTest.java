@@ -4,6 +4,11 @@ import org.hamcrest.core.IsNull;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
@@ -60,15 +65,17 @@ public class TrackerTest {
         tracker.add(item2);
         tracker.add(item3);
 
-        Item[] result = tracker.findAll();
-        assertThat(result, is(new Item[]{item1, item2, item3}));
+        ArrayList<Item> result = tracker.findAll();
+//        assertThat(result, is(new ArrayList<Item>(){item1, item2, item3}));
+        assertThat(result, is(new ArrayList<>(Arrays.asList(item1, item2, item3))));
     }
 
     @Test
     public void findAll2() {
         Tracker tracker = new Tracker();
-        Item[] result = tracker.findAll();
-        assertThat(result, is(new Item[0]));
+        ArrayList<Item> result = tracker.findAll();
+//        assertThat(result, is(new Item[0]));
+        assertThat(result, is(new ArrayList<>()));
     }
 
     @Test
@@ -114,8 +121,10 @@ public class TrackerTest {
         tracker.add(item2);
         tracker.add(item3);
 
-        Item[] result = tracker.findItemsByName(TESTNAME1);
-        assertThat(result, is(new Item[]{item1, item3}));
+//        Item[] result = tracker.findItemsByName(TESTNAME1);
+        List<Item> result = tracker.findItemsByName(TESTNAME1);
+//        assertThat(result, is(new Item[]{item1, item3}));
+        assertThat(result, is(new ArrayList<>(Arrays.asList(item1, item3))));
     }
 
     @Test
@@ -124,7 +133,8 @@ public class TrackerTest {
         tracker.add(item2);
         tracker.add(item3);
 
-        Item[] result = tracker.findItemsByName(FAKENAME);
-        assertThat(result, is(new Item[0]));
+        List<Item> result = tracker.findItemsByName(FAKENAME);
+//        assertThat(result, is(new Item[0]));
+        assertThat(result, is(new ArrayList<>(Collections.emptyList())));
     }
 }

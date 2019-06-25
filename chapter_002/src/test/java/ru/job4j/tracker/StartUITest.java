@@ -67,7 +67,7 @@ public class StartUITest {
     public void addNewItemTest1() {
         Input input = new StubInput(new String[]{"1", "test name4", "test desc4", "7"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.findAll()[3].getName(), is("test name4"));
+        assertThat(tracker.findAll().get(3).getName(), is("test name4"));
     }
     
     @Test
@@ -103,7 +103,7 @@ public class StartUITest {
     public void delItemTest1() {
         Input input = new StubInput(new String[]{"4", item1.getId(), "7"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.findAll().length, is(2));
+        assertThat(tracker.findAll().size(), is(2));
     }
     
     @Test
