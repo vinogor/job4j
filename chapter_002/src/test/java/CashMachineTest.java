@@ -19,8 +19,10 @@ public class CashMachineTest {
         List<List<Integer>> result = machine.exchange(5);
         assertThat(result, is(
                 asList(
-                        asList(1, 1, 1, 1, 1),
-                        asList(5)
+//                        asList(1, 1, 1, 1, 1),
+//                        asList(5)
+                        asList(5),
+                        asList(1, 1, 1, 1, 1)
                 )
         ));
     }
@@ -34,7 +36,8 @@ public class CashMachineTest {
                         asList(
                                 singletonList(10),
                                 asList(5, 5),
-                                asList(1, 1, 1, 1, 1, 5),
+//                                asList(1, 1, 1, 1, 1, 5),
+                                asList(5, 1, 1, 1, 1, 1),
                                 asList(1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
                         )
                 )
