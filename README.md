@@ -3,14 +3,8 @@
 прохожу курс Job4J
 http://job4j.ru/
 
-хочу подтянуть знания по архитектуре, поттернам, лямбда и стримам
-ну и в общем всё освежить, улучшить свой стиль
+master - [![Build Status](https://travis-ci.org/vinogor/job4j.svg?branch=master)](https://travis-ci.org/vinogor/job4j)
 
-"Объединение зафиксированных изменений"
-ещё раз объединим
+task_143215 - [![Build Status](https://travis-ci.org/vinogor/job4j.svg?branch=task_143215)](https://travis-ci.org/vinogor/job4j)
 
-"В курсе производилась работа с веткамы git."
-
-работаем с веточками
-
-создаём ветку из IDEA
+[![codecov](https://codecov.io/gh/vinogor/job4j/branch/master/graph/badge.svg)](https://codecov.io/gh/vinogor/job4j)
