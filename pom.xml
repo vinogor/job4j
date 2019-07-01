@@ -20,6 +20,7 @@
         <module>puzzle</module>
         <module>tictactoe</module>
         <module>chess</module>
+        <module>chapter_004</module>
     </modules>
 
     <dependencies>
