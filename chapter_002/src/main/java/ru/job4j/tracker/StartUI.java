@@ -4,6 +4,8 @@ import ru.job4j.tracker.input.ConsoleInput;
 import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.input.ValidateInput;
 
+import java.util.function.Consumer;
+
 /**
  * Start dialog with user via console.
  *
@@ -18,6 +20,8 @@ public class StartUI {
     
     private boolean doContinueWork = true;
     private int[] range;
+
+    private final Consumer<String> output;
     
     /**
      * Field initialization constructor.
@@ -25,18 +29,20 @@ public class StartUI {
      * @param input   data input.
      * @param tracker ticket storage.
      */
-    public StartUI(Input input, Tracker tracker) {
+    public StartUI(Input input, Tracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
+        this.output = output;
     }
-    
+
     /**
      * Start program.
      *
      * @param args arguments.
      */
     public static void main(String[] args) {
-        new StartUI(new ValidateInput(new ConsoleInput()), new Tracker()).init();
+        Consumer<String> output = System.out::println;
+        new StartUI(new ValidateInput(new ConsoleInput(output), output), new Tracker(), output).init();
 //        new StartUI(new ValidateInput(new StubInput(new String[]{"invalid", "7"})), new Tracker()).init();
 //        new StartUI(new ConsoleInput(), new Tracker()).init();
 //        new StartUI(new StubInput(new String[]{"1", "name1", "disr1", "7"}), new Tracker()).init();
@@ -46,7 +52,7 @@ public class StartUI {
      * The main cycle of the program.
      */
     public void init() {
-        MenuTracker menu = new MenuTracker(this.input, this.tracker);
+        MenuTracker menu = new MenuTracker(this.input, this.tracker, output);
         menu.fillActions(this);
         
         fillRange(menu);

@@ -2,12 +2,16 @@ package ru.job4j.tracker.input;
 
 import ru.job4j.tracker.MenuOutException;
 
+import java.util.function.Consumer;
+
 public class ValidateInput implements Input {
     
     private final Input input;
+    private final Consumer<String> output;
     
-    public ValidateInput(Input input) {
+    public ValidateInput(Input input, Consumer<String> output) {
         this.input = input;
+        this.output = output;
     }
     
     @Override
@@ -24,9 +28,9 @@ public class ValidateInput implements Input {
                 value = this.input.ask(question, range);
                 invalid = false;
             } catch (MenuOutException e) {
-                System.out.println("Please select key from menu");
+                output.accept("Please select key from menu");
             } catch (NumberFormatException e) {
-                System.out.println("Please enter validate data again.");
+                output.accept("Please enter validate data again.");
             }
         } while (invalid);
         return value;

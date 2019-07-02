@@ -5,22 +5,26 @@ import ru.job4j.tracker.input.Input;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class MenuTracker {
 
     private Input input;
     private Tracker tracker;
     private List<UserAction> actions = new ArrayList<>();
+    private final Consumer<String> output;
 
     /**
      * Конструктор.
      *
      * @param input   объект типа Input
      * @param tracker объект типа Tracker
+     * @param output
      */
-    public MenuTracker(Input input, Tracker tracker) {
+    public MenuTracker(Input input, Tracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
+        this.output = output;
     }
 
     /**
@@ -31,20 +35,20 @@ public class MenuTracker {
     public int getActionsLength() {
         return this.actions.size();
     }
-    
+
     public void addAction(UserAction action) {
         this.actions.add(action);
     }
 
     public void fillActions(StartUI ui) {
-        this.actions.add(new ShowMenu(0, "Show menu", this));
-        this.actions.add(new AddItem(1, "Add new Item"));
-        this.actions.add(new FindAllItem(2, "Show all items"));
-        this.actions.add(new UpdateItem(3, "Edit item"));
-        this.actions.add(new DeleteItem(4, "Delete item"));
-        this.actions.add(new FindByIdItem(5, "Find item by Id"));
-        this.actions.add(new FindByNameItem(6, "Find items by name"));
-        this.actions.add(new ExitProgram(7, "Exit Program", ui));
+        this.actions.add(new ShowMenu(0, "Show menu", this, output));
+        this.actions.add(new AddItem(1, "Add new Item", output));
+        this.actions.add(new FindAllItem(2, "Show all items", output));
+        this.actions.add(new UpdateItem(3, "Edit item", output));
+        this.actions.add(new DeleteItem(4, "Delete item", output));
+        this.actions.add(new FindByIdItem(5, "Find item by Id", output));
+        this.actions.add(new FindByNameItem(6, "Find items by name", output));
+        this.actions.add(new ExitProgram(7, "Exit Program", ui, output));
     }
 
     /**
@@ -62,7 +66,8 @@ public class MenuTracker {
     public void show() {
         for (UserAction action : this.actions) {
             if (action != null) {
-                System.out.println(action.key() + " - " + action.info());
+                output.accept(action.key() + " - " + action.info());
+//                System.out.println(action.key() + " - " + action.info());
             }
         }
     }

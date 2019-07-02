@@ -3,14 +3,20 @@ package ru.job4j.tracker.input;
 import ru.job4j.tracker.MenuOutException;
 
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 public class ConsoleInput implements Input {
 
     private Scanner sc = new Scanner(System.in);
-    
+    private final Consumer<String> output;
+
+    public ConsoleInput(Consumer<String> output) {
+        this.output = output;
+    }
+
     @Override
     public String ask(String question) {
-        System.out.print(question);
+        output.accept(question);
         return sc.nextLine();
     }
     

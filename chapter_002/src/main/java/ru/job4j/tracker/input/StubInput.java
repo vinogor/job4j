@@ -2,7 +2,11 @@ package ru.job4j.tracker.input;
 
 import ru.job4j.tracker.MenuOutException;
 
+import java.util.function.Consumer;
+
 public class StubInput implements Input {
+
+    private final Consumer<String> output;
     /**
      * Последовательность ответов пользователя.
      */
@@ -18,8 +22,9 @@ public class StubInput implements Input {
      *
      * @param value последовательность ответов пользователя.
      */
-    public StubInput(final String[] value) {
+    public StubInput(final String[] value, Consumer<String> output) {
         this.value = value;
+        this.output = output;
     }
 
     /**
@@ -30,9 +35,9 @@ public class StubInput implements Input {
      */
     @Override
     public String ask(String question) {
-        System.out.print(question);
+        output.accept(question);
         String answer = this.value[this.position++];
-        System.out.println(answer);
+        output.accept(answer);
         return answer;
     }
     

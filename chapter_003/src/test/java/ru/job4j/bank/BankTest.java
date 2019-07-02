@@ -12,15 +12,19 @@ import static org.junit.Assert.*;
 
 public class BankTest {
 
-    private final static Bank bank = new Bank();
-    private final static User user1 = new User("name1", "passport1");
-    private final static User user2 = new User("name2", "passport2");
-    private final static Account account1 = new Account(1000, "requisites1");
-    private final static Account account2 = new Account(2000, "requisites2");
+    private static Bank bank;
+    private  static User user1;
+    private  static User user2;
+    private  static Account account1;
+    private  static Account account2;
 
     @Before
     public void setUp() {
-
+        bank = new Bank();
+        user1 = new User("name1", "passport1");
+        user2 = new User("name2", "passport2");
+        account1 = new Account(1000, "requisites1");
+        account2 = new Account(2000, "requisites2");
     }
 
     @Test

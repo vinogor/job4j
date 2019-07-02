@@ -5,21 +5,23 @@ import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 public class FindAllItem extends BaseAction implements UserAction {
     
-    public FindAllItem(int menuNum, String menuInfo) {
-        super(menuNum, menuInfo);
+    public FindAllItem(int menuNum, String menuInfo, Consumer<String> output) {
+        super(menuNum, menuInfo, output);
     }
     
     @Override
     public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Вывод содержимого хранилища ----------");
+        output.accept("------------ Вывод содержимого хранилища ----------");
 //        Item[] items = tracker.findAll();
         ArrayList<Item> items = tracker.findAll();
         for (Item item : items) {
-            System.out.println(item);
+//            System.out.println(item);
+            output.accept(item.toString());
         }
-        System.out.println("------------ Конец --------------------------------");
+        output.accept("------------ Конец --------------------------------");
     }
 }

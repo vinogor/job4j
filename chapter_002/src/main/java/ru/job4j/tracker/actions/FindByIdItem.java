@@ -4,22 +4,24 @@ import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
 
+import java.util.function.Consumer;
+
 public class FindByIdItem extends BaseAction implements UserAction {
     
-    public FindByIdItem(int menuNum, String menuInfo) {
-        super(menuNum, menuInfo);
+    public FindByIdItem(int menuNum, String menuInfo, Consumer<String> output) {
+        super(menuNum, menuInfo, output);
     }
     
     @Override
     public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Поиск заявки по id -------------------");
+        output.accept("------------ Поиск заявки по id -------------------");
         String id = input.ask("Введите id заявки: ");
         Item result = tracker.findItemById(id);
         if (result != null) {
-            System.out.println(" Заявка найдена: " + result);
+            output.accept(" Заявка найдена: " + result);
         } else {
-            System.out.println(" Заявок с таким id не найдено");
+            output.accept(" Заявок с таким id не найдено");
         }
-        System.out.println("------------ Конец --------------------------------");
+        output.accept("------------ Конец --------------------------------");
     }
 }
