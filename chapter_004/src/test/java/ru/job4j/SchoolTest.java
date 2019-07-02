@@ -3,7 +3,6 @@ package ru.job4j;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
@@ -30,7 +29,7 @@ public class SchoolTest {
     @Test
     public void collectTest1() {
         List<Student> result = school.collect(students, student -> student.score < 50);
-        assertThat(result, is(Arrays.asList(
+        assertThat(result, is(List.of(
                 new Student(12),
                 new Student(48)
         )));
@@ -41,7 +40,7 @@ public class SchoolTest {
         List<Student> result = school.collect(students, student -> student.score >= 50);
         result = school.collect(result, student -> student.score < 70);
 
-        assertThat(result, is(Arrays.asList(
+        assertThat(result, is(List.of(
                 new Student(66),
                 new Student(69)
         )));
@@ -50,7 +49,7 @@ public class SchoolTest {
     @Test
     public void collectTest3() {
         List<Student> result = school.collect(students, student -> student.score >= 70);
-        assertThat(result, is(Arrays.asList(
+        assertThat(result, is(List.of(
                 new Student(99),
                 new Student(70)
         )));
