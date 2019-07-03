@@ -1,6 +1,5 @@
 package ru.job4j.search;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public class PriorityQueue {
@@ -19,11 +18,10 @@ public class PriorityQueue {
             tasks.add(taskToPut);
         } else {
             // чтобы избежать канкарент модиф эксепшен
-            LinkedList<Task> tasksCopy = new LinkedList<>(tasks);
-
-            Iterator<Task> iterator = tasksCopy.iterator();
+            var tasksCopy = new LinkedList<>(tasks);
+            var iterator = tasksCopy.iterator();
             while (true) {
-                Task task = iterator.next();
+                var task = iterator.next();
                 if (task.getPriority() >= taskToPut.getPriority()) {
                     tasks.add(tasksCopy.indexOf(task), taskToPut);
                     break;
