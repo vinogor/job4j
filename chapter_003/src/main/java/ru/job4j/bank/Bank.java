@@ -82,24 +82,47 @@ public class Bank {
     }
 
     public Account findAccount(User srcUser, String srcRequisite) {
-        Account result = null;
-        for (Account account : users.get(srcUser)) {
-            if (account.getRequisites().equals(srcRequisite)) {
-                result = account;
-                break;
-            }
-        }
-        return result;
+        //     Account result = null;
+
+        return users.get(srcUser).stream()
+                .filter(e -> e.getRequisites().equals(srcRequisite))
+                .findFirst()  // ??? после получения первого элемента, проход по коллекции завершается???
+                .orElse(null);
+
+// не очень рациональная альтернатива
+// ??? что вернёт стрим если после фильтра ничего не осталось???
+//                ...
+//                .limit(1)
+//                .collect(Collectors.toList())
+//                .get(0);
+
+
+//        for (Account account : users.get(srcUser)) {
+//            if (account.getRequisites().equals(srcRequisite)) {
+//                result = account;
+//                break;
+//            }
+//        }
+//        return result;
     }
 
     public User findUser(String passport) {
-        User result = null;
-        for (Map.Entry<User, List<Account>> entry : users.entrySet()) {
-            if (entry.getKey().getPassport().equals(passport)) {
-                result = entry.getKey();
-                break;
-            }
-        }
-        return result;
+//        User result = null;
+
+        return users
+                .keySet()
+                .stream()
+                .filter(key -> key.getPassport().equals(passport))
+                .findFirst()
+                .orElse(null)
+                ;
+
+//        for (Map.Entry<User, List<Account>> entry : users.entrySet()) {
+//            if (entry.getKey().getPassport().equals(passport)) {
+//                result = entry.getKey();
+//                break;
+//            }
+//        }
+//        return result;
     }
 }

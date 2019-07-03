@@ -13,10 +13,10 @@ import static org.junit.Assert.*;
 public class BankTest {
 
     private static Bank bank;
-    private  static User user1;
-    private  static User user2;
-    private  static Account account1;
-    private  static Account account2;
+    private static User user1;
+    private static User user2;
+    private static Account account1;
+    private static Account account2;
 
     @Before
     public void setUp() {
