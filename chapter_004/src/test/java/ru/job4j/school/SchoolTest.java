@@ -2,9 +2,8 @@ package ru.job4j.school;
 
 import org.junit.Before;
 import org.junit.Test;
-import ru.job4j.school.School;
-import ru.job4j.school.Student;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,14 +18,13 @@ public class SchoolTest {
     @Before
     public void setUp() {
         school = new School();
-        students = List.of(
-                new Student(99, "Sasha"),
-                new Student(70, "Masha"),
-                new Student(66, "Katya"),
-                new Student(69, "Misha"),
-                new Student(12, "Kolya"),
-                new Student(48, "Nikita")
-        );
+        students = new ArrayList<>();
+        students.add(new Student(99, "Sasha"));
+        students.add(new Student(70, "Masha"));
+        students.add(new Student(66, "Katya"));
+        students.add(new Student(69, "Misha"));
+        students.add(new Student(12, "Kolya"));
+        students.add(new Student(48, "Nikita"));
     }
 
     @Test
@@ -68,6 +66,23 @@ public class SchoolTest {
                 "Misha", new Student(69, "Misha"),
                 "Kolya", new Student(12, "Kolya"),
                 "Nikita", new Student(48, "Nikita")
+        )));
+    }
+
+    @Test
+    public void levelOfTest1() {
+        List<Student> result = school.levelOf(students, 70);
+        assertThat(result, is(List.of(
+                new Student(99, "Sasha")
+        )));
+    }
+
+    @Test
+    public void levelOfTest2() {
+        students.add(null);
+        List<Student> result = school.levelOf(students, 70);
+        assertThat(result, is(List.of(
+                new Student(99, "Sasha")
         )));
     }
 }
