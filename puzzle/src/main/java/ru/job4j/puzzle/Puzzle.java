@@ -20,6 +20,14 @@ import ru.job4j.puzzle.firuges.Figure;
 
 import java.util.Random;
 
+/* ==== Это поле VM Options ====
+
+--module-path
+c:\Java\javafx-sdk-11.0.2\lib\
+--add-modules=javafx.controls,javafx.fxml
+
+*/
+
 public class Puzzle extends Application {
     private static final String JOB4J = "Пазлы на www.job4j.ru";
     private final int size = 5;

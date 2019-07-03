@@ -16,6 +16,14 @@ import ru.job4j.chess.firuges.*;
 import ru.job4j.chess.firuges.black.*;
 import ru.job4j.chess.firuges.white.*;
 
+/* ==== Это поле VM Options ====
+
+--module-path
+c:\Java\javafx-sdk-11.0.2\lib\
+--add-modules=javafx.controls,javafx.fxml
+
+*/
+
 public class Chess extends Application {
     private static final String JOB4J = "Шахматы на www.job4j.ru";
     private final int size = 8;
