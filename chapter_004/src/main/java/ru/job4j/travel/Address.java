@@ -1,5 +1,7 @@
 package ru.job4j.travel;
 
+import java.util.Objects;
+
 public class Address {
     private String city;
     private String street;
@@ -38,8 +40,8 @@ public class Address {
 
         if (home != address.home) return false;
         if (apartment != address.apartment) return false;
-        if (city != null ? !city.equals(address.city) : address.city != null) return false;
-        return street != null ? street.equals(address.street) : address.street == null;
+        if (!Objects.equals(city, address.city)) return false;
+        return Objects.equals(street, address.street);
     }
 
     @Override

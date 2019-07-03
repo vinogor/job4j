@@ -2,9 +2,7 @@ package ru.job4j.travel;
 
 import org.junit.Before;
 import org.junit.Test;
-import ru.job4j.Student;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
@@ -20,6 +18,10 @@ public class TourAgencyTest {
         tourAgency = new TourAgency();
         profiles = List.of(
                 new Profile(new Address("Moscow", "Kutuzovskiy", 32, 1)),
+                new Profile(new Address("Moscow", "Kutuzovskiy", 32, 1)),
+                new Profile(new Address("Abakan", "Lenina", 666, 1)),
+                new Profile(new Address("Abakan", "Lenina", 666, 1)),
+                new Profile(new Address("Saint-Petersburg", "Leninskiy", 13, 134)),
                 new Profile(new Address("Saint-Petersburg", "Leninskiy", 13, 134))
         );
     }
@@ -28,6 +30,7 @@ public class TourAgencyTest {
     public void collectTest1() {
         List<Address> result = tourAgency.collect(profiles);
         assertThat(result, is(List.of(
+                new Address("Abakan", "Lenina", 666, 1),
                 new Address("Moscow", "Kutuzovskiy", 32, 1),
                 new Address("Saint-Petersburg", "Leninskiy", 13, 134)
         )));
