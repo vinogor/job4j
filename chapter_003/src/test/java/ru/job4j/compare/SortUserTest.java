@@ -15,11 +15,17 @@ public class SortUserTest {
     public void sortTest1() {
         SortUser sortUser = new SortUser();
 
-        List<User> list = new ArrayList<>();
+        List<User> list = List.of(
+                new User("Sasha", 29),
+                new User("Petya", 300),
+                new User("Kolya", 1)
+        );
 
-        list.add(new User("Sasha", 29));
-        list.add(new User("Petya", 300));
-        list.add(new User("Kolya", 1));
+        //new ArrayList<>();
+//
+//        list.add(new User("Sasha", 29));
+//        list.add(new User("Petya", 300));
+//        list.add(new User("Kolya", 1));
 
         Set<User> resultSet = sortUser.sort(list);
         List<User> resultList = new ArrayList<>(resultSet);
@@ -31,6 +37,16 @@ public class SortUserTest {
     @Test
     public void sortNameLengthTest1() {
         SortUser sortUser = new SortUser();
+
+//   list - иммутабельный получается, из-за этого вылетают ошибки при сортировке
+//   правда не понял в каком месте идёт попытка что-то изменить
+
+//        List<User> list = List.of(
+//                new User("Sasha", 25),
+//                new User("Petya1122", 30),
+//                new User("Sasha", 20),
+//                new User("Petya11", 25)
+//                );
 
         List<User> list = new ArrayList<>();
 
