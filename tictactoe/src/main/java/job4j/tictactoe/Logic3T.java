@@ -26,40 +26,32 @@ public class Logic3T {
     }
 
     public boolean isWinnerX() {
-
-        return
-            // горизонталь
-            this.fillBy(Figure3T::hasMarkX, 0, 0, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkX, 0, 1, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkX, 0, 2, 1, 0) ||
-                // вертикаль
-                this.fillBy(Figure3T::hasMarkX, 0, 0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkX, 1, 0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkX, 2, 0, 0, 1) ||
-                // диагонали
-                this.fillBy(Figure3T::hasMarkX, 0, 0, 1, 1) ||
-                this.fillBy(Figure3T::hasMarkX, this.table.length - 1, 0, -1, 1);
+        return checkWinner(Figure3T::hasMarkX);
     }
 
     public boolean isWinnerO() {
-        return
-            // горизонталь
-            this.fillBy(Figure3T::hasMarkO, 0, 0, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkO, 0, 1, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkO, 0, 2, 1, 0) ||
-
-                this.fillBy(Figure3T::hasMarkO, 0, 0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkO, 1, 0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkO, 2, 0, 0, 1) ||
-
-                this.fillBy(Figure3T::hasMarkO, 0, 0, 1, 1) ||
-                this.fillBy(Figure3T::hasMarkO, this.table.length - 1, 0, -1, 1);
+        return checkWinner(Figure3T::hasMarkO);
     }
 
     //  проверяет, если ли пустые клетки для новых ходов
+
     public boolean hasGap() {
         return Arrays.stream(table)             // создали стрим из массива с массивами
             .flatMap(Stream::of)                // сделали его одномерным
-            .anyMatch(new Figure3T()::equals); // если нет пустых то TRUE
+            .anyMatch(new Figure3T()::equals);  // если нет пустых то TRUE
+    }
+
+    private boolean checkWinner(Predicate<Figure3T> predicate) {
+        // горизонталь
+        return this.fillBy(predicate, 0, 0, 1, 0) ||
+            this.fillBy(predicate, 0, 1, 1, 0) ||
+            this.fillBy(predicate, 0, 2, 1, 0) ||
+            // вертикаль
+            this.fillBy(predicate, 0, 0, 0, 1) ||
+            this.fillBy(predicate, 1, 0, 0, 1) ||
+            this.fillBy(predicate, 2, 0, 0, 1) ||
+            // диагонали
+            this.fillBy(predicate, 0, 0, 1, 1) ||
+            this.fillBy(predicate, this.table.length - 1, 0, -1, 1);
     }
 }
