@@ -10,14 +10,12 @@ import static org.junit.Assert.assertThat;
 
 public class DepartmentsSortTest {
 
-    DepartmentsSort departmentsSort;
+    DepartmentsSort2 departmentsSort;
     List<String> departments;
 
     @Before
     public void setUp() {
-        departmentsSort = new DepartmentsSort();
         departments = new ArrayList<>();
-
         departments.add("K1");
         departments.add("K1\\SK1");
         departments.add("K1\\SK2");
@@ -31,15 +29,13 @@ public class DepartmentsSortTest {
         departments.add("K2\\SK2\\SSK2");
         departments.add("K2\\SK2\\SSK1");
         departments.add("K2");
+        departmentsSort = new DepartmentsSort2(departments);
+
     }
 
     @Test
     public void sortAscTest() {
-
-        List<String> result = departmentsSort.sortAsc(departments);
-        for (String s : result) {
-            System.out.println(s);
-        }
+        List<String> result = departmentsSort.sortAsc();
         assertThat(result, is(List.of(
             "K1",
             "K1",
@@ -59,10 +55,7 @@ public class DepartmentsSortTest {
 
     @Test
     public void sortDesTest() {
-        List<String> result = departmentsSort.sortDes(departments);
-        for (String s : result) {
-            System.out.println(s);
-        }
+        List<String> result = departmentsSort.sortDesc();
         assertThat(result, is(List.of(
             "K2",
             "K2\\SK2",
