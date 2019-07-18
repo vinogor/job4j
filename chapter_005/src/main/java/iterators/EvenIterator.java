@@ -8,6 +8,7 @@ import java.util.NoSuchElementException;
 public class EvenIterator implements Iterator {
     private int[] value;
     private int index = 0;
+    private int nextIndex = 0;
 
     public EvenIterator(int[] value) {
         this.value = value;
@@ -20,6 +21,7 @@ public class EvenIterator implements Iterator {
         for (int i = index; i < value.length; i++) {
             if (value[i] % 2 == 0) {
                 result = true;
+                nextIndex = i;
                 break;
             }
         }
@@ -30,9 +32,14 @@ public class EvenIterator implements Iterator {
     public Object next() {
         int result;
         try {
-            result = value[index++];
-            while (result % 2 != 0) {
+            if (nextIndex > index) {
+                index = nextIndex;
                 result = value[index++];
+            } else {
+                result = value[index++];
+                while (result % 2 != 0) {
+                    result = value[index++];
+                }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new NoSuchElementException();
