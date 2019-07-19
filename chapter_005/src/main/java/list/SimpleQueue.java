@@ -15,15 +15,11 @@ public class SimpleQueue<T> {
     public T poll() {
         int tempSize = tempSimpleStack1.size();
         for (int i = 0; i < tempSize - 1; i++) {
-            tempSimpleStack2.push(tempSimpleStack1.poll());
+            tempSimpleStack2.push(tempSimpleStack1.get(tempSize - 2 - i));
         }
-
-        T result = tempSimpleStack1.poll();
-
-        tempSize = tempSimpleStack2.size();
-        for (int i = 0; i < tempSize; i++) {
-            tempSimpleStack1.push(tempSimpleStack2.poll());
-        }
+        T result = tempSimpleStack1.get(tempSize - 1);
+        tempSimpleStack1 = tempSimpleStack2;
+        tempSimpleStack2 = new SimpleStack<>();
         return result;
     }
 }

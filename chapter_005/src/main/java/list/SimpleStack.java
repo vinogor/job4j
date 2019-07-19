@@ -8,9 +8,7 @@ public class SimpleStack<T> {
     // Метод push(T value) - помещает значение в коллекцию.
 
     public T poll() {
-        T result = dynamicLinkedList.get(0);
-        dynamicLinkedList.delete();
-        return result;
+        return dynamicLinkedList.delete();
     }
 
     public void push(T value) {
@@ -19,5 +17,9 @@ public class SimpleStack<T> {
 
     public int size() {
         return dynamicLinkedList.getSize();
+    }
+
+    public T get(int index) {
+        return dynamicLinkedList.get(index);
     }
 }
