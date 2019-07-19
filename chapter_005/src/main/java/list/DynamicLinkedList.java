@@ -11,7 +11,6 @@ public class DynamicLinkedList<E> implements Iterable<E> {
     private int modCount = 0;
     Node<E> nodeForIterator;
 
-
     public void add(E data) {
         Node<E> newLink = new Node<>(data);
         newLink.next = this.first; // новая указывает на первую в списке
@@ -25,8 +24,8 @@ public class DynamicLinkedList<E> implements Iterable<E> {
             throw new NoSuchElementException();
         }
         E result = first.data;
-        first = first.next;
-        size--;
+        this.first = first.next;
+        this.size--;
         this.modCount++;
         return result;
     }
@@ -59,13 +58,11 @@ public class DynamicLinkedList<E> implements Iterable<E> {
 
             @Override
             public E next() {
-                E result;
-                if (hasNext()) {
-                    result = nodeForIterator.data;
-                    nodeForIterator = nodeForIterator.next;
-                } else {
+                if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
+                E result = nodeForIterator.data;
+                nodeForIterator = nodeForIterator.next;
                 return result;
             }
         };
