@@ -1,20 +1,22 @@
 package list;
 
-import org.junit.Test;
 import org.junit.Before;
+import org.junit.Test;
 
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
-public class SimpleArrayListTest {
+public class DynamicLinkedListTest {
 
-    private SimpleArrayList<Integer> list;
+    private DynamicLinkedList<Integer> list;
 
     @Before
     public void beforeTest() {
-        list = new SimpleArrayList<>();
+        list = new DynamicLinkedList<>();
         list.add(1);
         list.add(2);
         list.add(3);
@@ -44,5 +46,19 @@ public class SimpleArrayListTest {
         list.delete();
         list.delete();
         list.delete();
+    }
+
+    @Test()
+    public void iteratorTest01() {
+        Iterator<Integer> iterator = list.iterator();
+        assertThat(iterator.hasNext(), is(true));
+        assertThat(iterator.next(), is(3));
+    }
+
+    @Test(expected = ConcurrentModificationException.class)
+    public void iteratorTest02() {
+        Iterator<Integer> iterator = list.iterator();
+        list.delete();
+        iterator.hasNext();
     }
 }
