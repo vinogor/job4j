@@ -44,12 +44,40 @@ public class SimpleArrayTest {
         assertThat(simpleArray.get(1), is(DUMMY_MOD));
     }
 
+    @Test(expected = NoSuchElementException.class)
+    public void setTest2() {
+        simpleArray.add(DUMMY_1);
+        simpleArray.add(DUMMY_2);
+        simpleArray.set(2, DUMMY_MOD);
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void setTest3() {
+        simpleArray.add(DUMMY_1);
+        simpleArray.add(DUMMY_2);
+        simpleArray.set(-1, DUMMY_MOD);
+    }
+
     @Test
     public void removeTest1() {
         simpleArray.add(DUMMY_1);
         simpleArray.add(DUMMY_2);
         simpleArray.remove(0);
         assertThat(simpleArray.get(0), is(DUMMY_2));
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void removeTest2() {
+        simpleArray.add(DUMMY_1);
+        simpleArray.add(DUMMY_2);
+        simpleArray.remove(2);
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void removeTest3() {
+        simpleArray.add(DUMMY_1);
+        simpleArray.add(DUMMY_2);
+        simpleArray.remove(-1);
     }
 
     @Test

@@ -21,10 +21,12 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public void set(int index, T model) {
+        isExist(index);
         this.array[index] = model;
     }
 
     public void remove(int index) {
+        isExist(index);
         System.arraycopy(array, index + 1, array, index, len - index - 1);
         this.cursor--;
     }
@@ -33,10 +35,9 @@ public class SimpleArray<T> implements Iterable<T> {
         return this.array[index];
     }
 
-    //  метод iterator() возвращает итератор, предназначенный для обхода данной структуры.
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
+        return new Iterator<>() {
 
             private int cursorIter = 0;
 
@@ -53,5 +54,11 @@ public class SimpleArray<T> implements Iterable<T> {
                 return array[cursorIter++];
             }
         };
+    }
+
+    private void isExist(int index) {
+        if ((index < 0) || (index >= cursor)) {
+            throw new NoSuchElementException();
+        }
     }
 }

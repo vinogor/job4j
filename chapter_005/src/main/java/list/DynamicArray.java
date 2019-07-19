@@ -26,10 +26,12 @@ public class DynamicArray<E> implements Iterable<E> {
     }
 
     public void set(int index, E model) {
+        isExist(index);
         this.array[index] = model;
     }
 
     public void remove(int index) {
+        isExist(index);
         System.arraycopy(array, index + 1, array, index, len - index - 1);
         this.cursor--;
     }
@@ -68,5 +70,11 @@ public class DynamicArray<E> implements Iterable<E> {
         System.arraycopy(array, 0, newArray, 0, len);
         len = newLen;
         array = newArray;
+    }
+
+    private void isExist(int index) {
+        if ((index < 0) || (index >= cursor)) {
+            throw new NoSuchElementException();
+        }
     }
 }
