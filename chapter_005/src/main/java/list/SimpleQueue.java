@@ -13,13 +13,12 @@ public class SimpleQueue<T> {
     }
 
     public T poll() {
-        int tempSize = tempSimpleStack1.size();
-        for (int i = 0; i < tempSize - 1; i++) {
-            tempSimpleStack2.push(tempSimpleStack1.get(tempSize - 2 - i));
+        if (tempSimpleStack2.size() == 0) {
+            int tempSize = tempSimpleStack1.size();
+            for (int i = 0; i < tempSize; i++) {
+                tempSimpleStack2.push(tempSimpleStack1.poll());
+            }
         }
-        T result = tempSimpleStack1.get(tempSize - 1);
-        tempSimpleStack1 = tempSimpleStack2;
-        tempSimpleStack2 = new SimpleStack<>();
-        return result;
+        return tempSimpleStack2.poll();
     }
 }

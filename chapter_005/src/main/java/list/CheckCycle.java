@@ -1,26 +1,45 @@
 package list;
 
 public class CheckCycle {
+    Node first = new Node(1);
+    Node two = new Node(2);
+    Node third = new Node(3);
+    Node four = new Node(4);
 
-    private DynamicLinkedList<Node> list = new DynamicLinkedList<>();
+    class Node<T> {
+        T value;
+        Node<T> next;
+
+        public Node(T value) {
+            this.value = value;
+        }
+    }
+
+    public void setNodsNext(Node firstNext, Node twoNext, Node thirdNext, Node fourNext) {
+        this.first.next = firstNext;
+        this.two.next = twoNext;
+        this.third.next = thirdNext;
+        this.four.next = fourNext;
+    }
 
     boolean hasCycle(Node first) {
         boolean result = false;
-        list.add(first);
-        Node next = first.next;
+        Node currentNode = first;
         // либо уткнёмся в null, либо обнаружим совпадение ссылок
-        while (next != null) {
-            for (int i = 0; i < list.getSize(); i++) {
-                if (next == list.get(i)) {
+        while (!result) {
+            if ((currentNode == null) || (currentNode.next == null)) {
+                break;
+            }
+            currentNode = currentNode.next;
+            // проходимся от начала до текущего
+            Node searchNode = first;
+            while (searchNode.next != currentNode) {
+                if (currentNode.next == searchNode) {
                     result = true;
                     break;
                 }
+                searchNode = searchNode.next;
             }
-            if (result) {
-                break;
-            }
-            list.add(next);
-            next = next.next;
         }
         return result;
     }

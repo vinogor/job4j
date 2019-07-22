@@ -3,56 +3,76 @@ package list;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
 
 public class CheckCycleTest {
 
     private CheckCycle checkCycle;
-    private Node first;
-    private Node two;
-    private Node third;
-    private Node four;
 
     @Before
     public void setUp() {
         checkCycle = new CheckCycle();
-        first = new Node(1);
-        two = new Node(2);
-        third = new Node(3);
-        four = new Node(4);
     }
 
-    // кольцо есть, из first оно достигается
+    // кольцо есть, из first оно достигается, проход по всем элементам
     @Test
     public void hasCycleTest1() {
-        first.next = two;
-        two.next = third;
-        third.next = four;
-        four.next = first;
-
-        assertThat(checkCycle.hasCycle(first), is(true));
+        checkCycle.setNodsNext(
+            checkCycle.two,
+            checkCycle.third,
+            checkCycle.four,
+            checkCycle.first
+        );
+        assertThat(checkCycle.hasCycle(checkCycle.first), is(true));
     }
 
     // кольцо есть, из first оно НЕ достигается
     @Test
     public void hasCycleTest2() {
-        first.next = two;
-        two.next = null;
-        third.next = four;
-        four.next = third;
-
-        assertThat(checkCycle.hasCycle(first), is(false));
+        checkCycle.setNodsNext(
+            checkCycle.two,
+            null,
+            checkCycle.four,
+            checkCycle.third
+        );
+        assertThat(checkCycle.hasCycle(checkCycle.first), is(false));
     }
 
     // кольца НЕТ вообще
     @Test
     public void hasCycleTest3() {
-        first.next = two;
-        two.next = third;
-        third.next = four;
-        four.next = null;
 
-        assertThat(checkCycle.hasCycle(first), is(false));
+        checkCycle.setNodsNext(
+            checkCycle.two,
+            checkCycle.third,
+            checkCycle.four,
+            null
+        );
+        assertThat(checkCycle.hasCycle(checkCycle.first), is(false));
+    }
+
+    // кольцо есть, из first оно достигается, проход НЕ по всем элементам
+    @Test
+    public void hasCycleTest4() {
+        checkCycle.setNodsNext(
+            checkCycle.two,
+            checkCycle.third,
+            checkCycle.first,
+            null
+        );
+        assertThat(checkCycle.hasCycle(checkCycle.first), is(true));
+    }
+
+    // first сразу указывает на null
+    @Test
+    public void hasCycleTest5() {
+        checkCycle.setNodsNext(
+            null,
+            checkCycle.third,
+            checkCycle.four,
+            checkCycle.first
+        );
+        assertThat(checkCycle.hasCycle(checkCycle.first), is(false));
     }
 }
