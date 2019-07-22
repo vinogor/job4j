@@ -8,6 +8,11 @@ public class SimpleArray<T> implements Iterable<T> {
     private int cursor = 0;
     private T[] array;
 
+    public SimpleArray() {
+        this.len = 10;
+        this.array = (T[]) new Object[len];
+    }
+
     public SimpleArray(int len) {
         this.len = len;
         this.array = (T[]) new Object[len];
@@ -33,6 +38,10 @@ public class SimpleArray<T> implements Iterable<T> {
 
     public T get(int index) {
         return this.array[index];
+    }
+
+    public int size() {
+        return cursor;
     }
 
     @Override
