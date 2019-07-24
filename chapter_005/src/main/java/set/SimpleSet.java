@@ -24,7 +24,10 @@ public class SimpleSet<E> implements Iterable<E> {
 
     private void checkAlreadyExist(E newE) {
         for (E e : simpleArray) {
-            if (newE.equals(e)) {
+            if ((e == null) && (newE == null)) {
+                throw new IllegalArgumentException();
+            }
+            if ((newE != null) && (newE.equals(e))) {
                 throw new IllegalArgumentException();
             }
         }

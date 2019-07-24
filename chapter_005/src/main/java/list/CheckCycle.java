@@ -22,7 +22,7 @@ public class CheckCycle {
         this.four.next = fourNext;
     }
 
-    boolean hasCycle(Node first) {
+    boolean hasCycle1(Node first) {
         boolean result = false;
         Node currentNode = first;
         // либо уткнёмся в null, либо обнаружим совпадение ссылок
@@ -39,6 +39,22 @@ public class CheckCycle {
                     break;
                 }
                 searchNode = searchNode.next;
+            }
+        }
+        return result;
+    }
+
+    public boolean hasCycle(Node first) {
+        boolean result = false;
+        Node turtle = first;
+        Node hare = first;
+
+        while (hare != null && hare.next != null) {
+            turtle = turtle.next;
+            hare = hare.next.next;
+            if (turtle == hare) {
+                result = true;
+                break;
             }
         }
         return result;
