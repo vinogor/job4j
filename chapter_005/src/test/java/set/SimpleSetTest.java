@@ -26,10 +26,11 @@ public class SimpleSetTest {
         assertThat(simpleSet.size(), is(1));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void addTest2() {
         simpleSet.add(DUMMY_1);
         simpleSet.add(DUMMY_1);
+        assertThat(simpleSet.size(), is(1));
     }
 
     @Test

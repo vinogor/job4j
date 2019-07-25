@@ -13,8 +13,9 @@ public class SimpleSet<E> implements Iterable<E> {
     }
 
     void add(E e) {
-        checkAlreadyExist(e);
-        simpleArray.add(e);
+        if (!checkAlreadyExist(e)) {
+            simpleArray.add(e);
+        }
     }
 
     @Override
@@ -22,15 +23,15 @@ public class SimpleSet<E> implements Iterable<E> {
         return simpleArray.iterator();
     }
 
-    private void checkAlreadyExist(E newE) {
+    private boolean checkAlreadyExist(E newE) {
+        boolean result = false;
         for (E e : simpleArray) {
-            if ((e == null) && (newE == null)) {
-                throw new IllegalArgumentException();
-            }
-            if ((newE != null) && (newE.equals(e))) {
-                throw new IllegalArgumentException();
+            if (((e == null) && (newE == null)) || ((newE != null) && (newE.equals(e)))) {
+                result = true;
+                break;
             }
         }
+        return result;
     }
 
     public int size() {
