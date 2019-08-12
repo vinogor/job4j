@@ -27,19 +27,6 @@ public class CustomHashMap<K, V> implements InterfaceForCustomMap<K, V>, Iterabl
     }
 
     @Override
-    public boolean insert(K key, V value) {
-        boolean result = false;
-        isNeedResize();
-        int index = generateIndex(key);
-        if (array[index] == null) {
-            array[index] = new Node<>(key, value);
-            quantity++;
-            result = true;
-        }
-        return result;
-    }
-
-    @Override
     public V get(K key) {
         V result = null;
         int index = generateIndex(key);
@@ -56,6 +43,23 @@ public class CustomHashMap<K, V> implements InterfaceForCustomMap<K, V>, Iterabl
         if ((array[index] != null) && (array[index].key.equals(key))) {
             array[index] = null;
             quantity--;
+            result = true;
+        }
+        return result;
+    }
+
+    // а если не null то нужно сравнить ключи и если они равны то заменить значение
+    @Override
+    public boolean insert(K key, V value) {
+        boolean result = false;
+        isNeedResize();
+        int index = generateIndex(key);
+        if (array[index] == null) {
+            array[index] = new Node<>(key, value);
+            quantity++;
+            result = true;
+        } else if (array[index].key == key) {
+            array[index].value = value;
             result = true;
         }
         return result;

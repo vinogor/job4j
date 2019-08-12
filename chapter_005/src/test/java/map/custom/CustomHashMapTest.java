@@ -35,7 +35,8 @@ public class CustomHashMapTest {
     @Test
     public void insertTest2() {
         customHashMap.insert(KEY_1, VALUE_1);
-        assertThat(customHashMap.insert(KEY_1, VALUE_1), is(false));
+        assertThat(customHashMap.insert(KEY_1, VALUE_2), is(true));
+        assertThat(customHashMap.get(KEY_1), is(VALUE_2));
         assertThat(customHashMap.size(), is(1));
     }
 
