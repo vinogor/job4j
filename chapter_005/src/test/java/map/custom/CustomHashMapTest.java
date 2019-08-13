@@ -43,13 +43,13 @@ public class CustomHashMapTest {
     @Test
     public void insertTest3() {
         // чтобы ТОЧНО сработал метод isNeedResize() - уменьшаю размер внутреннего массива
-        customHashMap = new CustomHashMap<>(5);
-        for (int i = 0; i < 5; i++) {
+        customHashMap = new CustomHashMap<>(2);
+        for (int i = 0; i < 2; i++) {
             customHashMap.insert("" + i, "" + i);
         }
-        assertThat(customHashMap.size(), is(5));
-        assertThat(customHashMap.insert(KEY_2, VALUE_2), is(true));
-        assertThat(customHashMap.size(), is(6));
+        assertThat(customHashMap.size(), is(2));
+        assertThat(customHashMap.insert(KEY_1, VALUE_1), is(true));
+        assertThat(customHashMap.size(), is(3));
     }
 
     @Test

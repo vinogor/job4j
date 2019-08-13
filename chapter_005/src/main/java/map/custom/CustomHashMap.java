@@ -114,6 +114,7 @@ public class CustomHashMap<K, V> implements InterfaceForCustomMap<K, V>, Iterabl
             this.lenArray *= 2;
             Node<K, V>[] tempArray = this.array;
             this.array = new Node[lenArray];
+            quantity = 0;
             for (Node<K, V> node : tempArray) {
                 insert(node.key, node.value);
             }
