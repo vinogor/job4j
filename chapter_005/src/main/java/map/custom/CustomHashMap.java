@@ -58,7 +58,7 @@ public class CustomHashMap<K, V> implements InterfaceForCustomMap<K, V>, Iterabl
             array[index] = new Node<>(key, value);
             quantity++;
             result = true;
-        } else if (array[index].key == key) {
+        } else if (array[index].key.equals(key)) {
             array[index].value = value;
             result = true;
         }
@@ -111,10 +111,12 @@ public class CustomHashMap<K, V> implements InterfaceForCustomMap<K, V>, Iterabl
 
     private void isNeedResize() {
         if (quantity == lenArray) {
-            this.lenArray = this.lenArray * 2;
-            Node<K, V>[] tempArray = new Node[lenArray];
-            System.arraycopy(this.array, 0, tempArray, 0, quantity);
-            this.array = tempArray;
+            this.lenArray *= 2;
+            Node<K, V>[] tempArray = this.array;
+            this.array = new Node[lenArray];
+            for (Node<K, V> node : tempArray) {
+                insert(node.key, node.value);
+            }
         }
     }
 }
