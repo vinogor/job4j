@@ -3,7 +3,9 @@ package tree;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
@@ -33,6 +35,18 @@ public class MyTreeTest {
     }
 
     @Test
+    public void addTest1() {
+        tree.add(6, 7);
+        assertThat(tree.size(), is(7));
+    }
+
+    @Test
+    public void addTest2() {
+        tree.add(4, 5);
+        assertThat(tree.size(), is(6));
+    }
+
+    @Test
     public void iteratorTest1() {
         Iterator<Integer> iterator = tree.iterator();
 
@@ -55,5 +69,21 @@ public class MyTreeTest {
         assertThat(iterator.next(), is(6));
 
         assertThat(iterator.hasNext(), is(false));
+    }
+
+    @Test(expected = ConcurrentModificationException.class)
+    public void iteratorTest2() {
+        Iterator<Integer> iterator = tree.iterator();
+        tree.add(4, 7);
+        iterator.hasNext();
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void iteratorTest3() {
+        Iterator<Integer> iterator = tree.iterator();
+        for (int i = 0; i < tree.size(); i++) {
+            iterator.next();
+        }
+        iterator.next();
     }
 }

@@ -5,8 +5,8 @@ import java.util.*;
 public class MyTree<E extends Comparable<E>> implements SimpleTree<E> {
 
     private final Node<E> root;
-
     private int counter = 0;
+    private int modCounter = 0;
 
     public MyTree(E e) {
         this.root = new Node<>(e);
@@ -24,6 +24,7 @@ public class MyTree<E extends Comparable<E>> implements SimpleTree<E> {
             if (!hasSameNode(leaves, child)) {
                 nodeParent.add(new Node<>(child));
                 counter++;
+                modCounter++;
                 result = true;
             }
         }
@@ -56,39 +57,31 @@ public class MyTree<E extends Comparable<E>> implements SimpleTree<E> {
     @Override
     public Iterator<E> iterator() {
         return new Iterator<>() {
-            int tempCounter = 0;
-
-            // преобразуем дерево в связный список
-            Queue<Node<E>> tempData1 = new LinkedList<>();
-            Queue<Node<E>> tempData2 = new LinkedList<>();
-
+            int tempModCounter = modCounter;
+            Queue<Node<E>> tempData = new LinkedList<>();
             {
-                tempData1.offer(root);
-                while (!tempData1.isEmpty()) {
-
-                    Node<E> tempNode = tempData1.poll(); // получаем и удаляем
-                    tempData2.add(tempNode);
-
-                    for (Node<E> child : tempNode.leaves()) {
-                        tempData1.offer(child);
-                    }
-                }
+                tempData.add(root);
             }
 
             @Override
             public boolean hasNext() {
-                return tempCounter != counter;
+                if (tempModCounter != modCounter) {
+                    throw new ConcurrentModificationException();
+                }
+                return !tempData.isEmpty();
             }
 
             @Override
             public E next() {
-                E result = null;
-                if (hasNext()) {
-                    tempCounter++;
-                    Node<E> poll = tempData2.poll();
-                    result = poll.getValue();
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
                 }
-                return result;
+                Node<E> leaf = tempData.poll();
+                List<Node<E>> childrens = leaf.leaves();
+                for (Node<E> node : childrens) {
+                    tempData.offer(node);
+                }
+                return leaf.getValue();
             }
         };
     }
