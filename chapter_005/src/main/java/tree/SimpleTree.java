@@ -9,4 +9,6 @@ public interface SimpleTree<E extends Comparable<E>> extends Iterable<E> {
     Optional<Node<E>> findBy(E value);
 
     int size();
+
+    boolean isBinary();
 }

@@ -55,6 +55,25 @@ public class MyTree<E extends Comparable<E>> implements SimpleTree<E> {
     }
 
     @Override
+    public boolean isBinary() {
+        // метод должен циклически пройти по всем элементам дерева.
+        //  Для этого можно использовать итератор из предыдущего задания.
+        boolean result = true;
+
+        Iterator<E> iterator = iterator();
+        while (iterator.hasNext()) {
+            E value = iterator.next(); // возвращал бы итератор узел а не значение, то было бы удобнее...
+            Node<E> node = findBy(value).get();
+            if (node.leaves().size() > 2) {
+                result = false;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    @Override
     public Iterator<E> iterator() {
         return new Iterator<>() {
             int tempModCounter = modCounter;
