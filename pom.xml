@@ -21,7 +21,8 @@
         <module>chapter_002</module>
         <module>chapter_003</module>
         <module>chapter_004</module>
-        <module>chapter_005</module>
+        <module>chapter_005_collection_pro</module>
+        <module>chapter_006_input_output</module>
     </modules>
 
     <dependencies>
