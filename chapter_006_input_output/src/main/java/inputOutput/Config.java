@@ -20,10 +20,6 @@ public class Config {
     private final String path;
     private final Map<String, String> values = new HashMap<>();
 
-    public Config() {
-        this.path = "app.properties";
-    }
-
     public Config(final String path) {
         this.path = path;
     }
@@ -31,8 +27,10 @@ public class Config {
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             read
-                .lines() // получаем поток строк
-                .filter(x -> !(x.isEmpty()) && !(x.isBlank()) && !(x.substring(0, 2)).equals("##")) // убираем пустые и комменты
+                // получаем поток строк
+                .lines()
+                // убираем пустые, комменты и без знака "="
+                .filter(x -> !(x.isEmpty()) && !(x.isBlank()) && !(x.substring(0, 2)).equals("##") && (x.contains("=")))
                 .map(x -> x.split("=")) // выделяем будущий ключ и значение
                 .forEachOrdered(x -> values.put(x[0], x[1])); // заполняем мапу
         } catch (Exception e) {
@@ -62,16 +60,22 @@ public class Config {
     }
 
     public static void main(String[] args) {
-        // путь указывать от текущего МОДУЛЯ! (не проекта и не текущей папки)
-//        String path = "chapter_006_input_output/src/main/java/inputOutput/app.properties";
-//        String property = System.getProperty("user.dir");
-//        System.out.println(property);
 
-//        path = property + "/app.properties";
-//        Config config = new Config(path);
-        Config config = new Config("app.properties");
-//        Config config = new Config("c:\\Projects\\IdeaProjects\\job4j\\chapter_006_input_output\\src\\main\\java\\inputOutput\\app.properties");
+        // выдаёт java.io.FileNotFoundException: app.properties (Не удается найти указанный файл)
+        // файл app.properties в папке resources
+        // почему так?
+        // Config config = new Config("app.properties");
+
+        // тут всё ок работает
+        // файл app2.properties в корне проекта
+        // Config config = new Config("app2.properties");
+
+        // тут всё ок работает
+        // файл app.properties в папке resources
+        Config config = new Config("chapter_006_input_output/src/main/resources/app.properties");
+
         System.out.println(config);
+
         System.out.println("=============");
 
         config.load();
