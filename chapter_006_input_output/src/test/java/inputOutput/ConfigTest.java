@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.PrintStream;
 
 import static org.hamcrest.Matchers.nullValue;
@@ -18,6 +17,10 @@ public class ConfigTest {
     @Before
     public void setUp() {
 
+        // так работает!!
+        // файл appForTest.properties в папке resources которая в папке test
+        String path = getClass().getClassLoader().getResource("appForTest.properties").getFile();
+
         // так не работает
         // файл app.properties в папке resources
         // config = new Config("chapter_006_input_output/target/classes/app.properties");
@@ -29,8 +32,9 @@ public class ConfigTest {
         // config = new Config("chapter_006_input_output/target/test-classes/appForTest.properties");
 
         // вот так работает
-        String prop = System.getProperty("user.dir"); // получаем путь до корня текущего МОДУЛЯ
-        String path = new File(prop).getPath() + "/src/main/resources/app.properties";
+//        String prop = System.getProperty("user.dir"); // получаем путь до корня текущего МОДУЛЯ
+//        String path = prop + "/src/main/resources/app.properties";
+
         config = new Config(path);
     }
 
