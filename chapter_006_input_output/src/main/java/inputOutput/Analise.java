@@ -1,57 +1,66 @@
 package inputOutput;
 
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.PrintWriter;
+import java.io.*;
 
-public class Analizy {
+public class Analise {
 
     public void unavailable(String source, String target) {
 
         // source - имя файла лога
         // target - имя файла после анализа.
 
-        // Метод anavailable должен находить диапазоны, когда сервер не работал.
+        // Метод unavailable должен находить диапазоны, когда сервер не работал.
         // Сервер не работал. Если status = 400 или 500.
         // Диапазон считается последовательность статусов 400 и 500
 
         // Результат анализа нужно записать в файл target.
         // Формат файла: начала периода;конец периода;
 
+        StringBuilder sb = new StringBuilder();
+
         try (
             BufferedReader reader = new BufferedReader(new FileReader(source));
-            PrintWriter out = new PrintWriter(new FileOutputStream(target))
         ) {
             boolean isUnavailable = false;
             String line = reader.readLine();
+            String nextLine = System.lineSeparator();
             while (line != null) {
 
                 if (!isUnavailable && (line.startsWith("400") || line.startsWith("500"))) {
                     isUnavailable = true;
-                    out.print(line.substring(4) + ";");
+                    sb.append(line.substring(4)).append(";");
                 }
 
                 if (isUnavailable && (!line.startsWith("400") && !line.startsWith("500"))) {
                     isUnavailable = false;
-                    out.println(line.substring(4) + ";");
+                    sb.append(line.substring(4)).append(";").append(nextLine);
                 }
-
                 line = reader.readLine();
             }
 
             if (isUnavailable) {
-                out.println("no data;");
+                sb.append("no data;");
             }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        write(target, sb);
+    }
+
+    private void write(String target, StringBuilder sb) {
+        try (PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
+            out.print(sb.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
-        Analizy analizy = new Analizy();
-        String path = "chapter_006_input_output/src/main/resources/";
-        analizy.unavailable(path + "source.txt", path + "target.txt");
+        Analise analise = new Analise();
+        String path = Analise.class.getClassLoader().getResource("").getFile();
+        System.out.println(path);
+        analise.unavailable(path + "source.txt", path + "target.txt");
     }
 }

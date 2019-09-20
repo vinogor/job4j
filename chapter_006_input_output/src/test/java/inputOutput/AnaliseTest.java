@@ -10,9 +10,9 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.*;
 
-public class AnalizyTest {
+public class AnaliseTest {
 
-    private static Analizy analizy;
+    private static Analise analise;
     private static final String prop = System.getProperty("user.dir"); // получаем путь до корня текущего МОДУЛЯ
     private static final String path = prop + "/src/main/resources/"; // полный путь до файла
     private static final String sourceTest = "sourceTest.txt";
@@ -20,7 +20,7 @@ public class AnalizyTest {
 
     @Before
     public void setUp() {
-        analizy = new Analizy();
+        analise = new Analise();
     }
 
     @After
@@ -42,7 +42,7 @@ public class AnalizyTest {
             e.printStackTrace();
         }
 
-        analizy.unavailable(path + sourceTest, path + targetTest);
+        analise.unavailable(path + sourceTest, path + targetTest);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(path + targetTest))) {
             assertThat(reader.readLine(), is("10:58:01;10:59:01;"));
@@ -66,7 +66,7 @@ public class AnalizyTest {
             e.printStackTrace();
         }
 
-        analizy.unavailable(path + sourceTest, path + targetTest);
+        analise.unavailable(path + sourceTest, path + targetTest);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(path + targetTest))) {
             assertThat(reader.readLine(), is("10:58:01;10:59:01;"));
@@ -87,7 +87,7 @@ public class AnalizyTest {
             e.printStackTrace();
         }
 
-        analizy.unavailable(path + sourceTest, path + targetTest);
+        analise.unavailable(path + sourceTest, path + targetTest);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(path + targetTest))) {
             assertThat(reader.readLine(), is(nullValue()));

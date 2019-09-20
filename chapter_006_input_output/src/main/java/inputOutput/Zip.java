@@ -13,46 +13,15 @@ Program arguments:
 public class Zip {
 
     private List<File> seekBy(String root, String ext) {
-
-        File file = new File(root);
-        Queue<File> stack = new LinkedList<>();
-        List<File> result = new ArrayList<>();
-
-        if (!file.isDirectory()) {
-            return null;
-        }
-        stack.add(file);
-
-        while (!stack.isEmpty()) {
-            File leaf = stack.poll(); // достаём с головы и удаляем
-
-            // получаем список файлов и папок, сюда засунем фильтр расширений
-            File[] files = leaf.listFiles(
-                pathname -> {
-                    if (pathname.isFile()) {
-                        String name = pathname.getName();
-                        if (name.lastIndexOf(".") != -1 && name.lastIndexOf(".") != 0) {
-                            String currentExt = name.substring(name.lastIndexOf(".") + 1);
-                            return !ext.equals(currentExt);
-                        }
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-            );
-
-            if (files != null) {
-                for (File fileTmp : files) {
-                    if (fileTmp.isDirectory()) {
-                        stack.add(fileTmp);
-                    } else {
-                        result.add(fileTmp);
-                    }
-                }
-            }
-        }
-        return result;
+        return new Search().files(
+            root,
+            new CustomFileFilter(
+                new ArrayList<>() {{
+                    add(ext);
+                }},
+                false // исключая
+            )
+        );
     }
 
     void pack(List<File> sources, File target) {
