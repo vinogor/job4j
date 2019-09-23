@@ -5,8 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Chat {
-
     private List<String> answers = new ArrayList<>();
+
+    private static final String YOU = "You: ";
+    private static final String END = "закончить";
+    private static final String STOP = "стоп";
+    private static final String AUTO_RESPONDER_OFF = "=== автоответчик отключён ===";
+    private static final String AUTO_RESPONDER_ON = "=== автоответчик включен ===";
+    private static final String CONTINUE = "продолжить";
+    private static final String BOT = "Bot: ";
+    private static final String END_WORK = "Завершаем работу";
+    private static final String FILE_NAME = "chat.txt";
 
     private void start() throws IOException {
         InputStream inputStream = System.in;
@@ -14,24 +23,24 @@ public class Chat {
         BufferedReader br = new BufferedReader(inputStreamReader);
         readAnswers(); // читаем весь файл и заполняем построчно List
 
-        System.out.print("You: ");
+        System.out.print(YOU);
         String input = br.readLine();
         boolean shouldAnswer = true;
-        while (!input.equals("закончить")) {
+        while (!END.equals(input)) {
 
-            if (input.equals("стоп") && shouldAnswer) {
+            if (STOP.equals(input) && shouldAnswer) {
                 shouldAnswer = false;
-                System.out.println("=== автоответчик отключён ===");
-            } else if (input.equals("продолжить") && !shouldAnswer) {
+                System.out.println(AUTO_RESPONDER_OFF);
+            } else if (input.equals(CONTINUE) && !shouldAnswer) {
                 shouldAnswer = true;
-                System.out.println("=== автоответчик включен ===");
+                System.out.println(AUTO_RESPONDER_ON);
             } else if (shouldAnswer) {
-                System.out.println("Bot: " + answer());
+                System.out.println(BOT + answer());
             }
-            System.out.print("You: ");
+            System.out.print(YOU);
             input = br.readLine();
         }
-        System.out.println("Завершаем работу");
+        System.out.println(END_WORK);
     }
 
     private void readAnswers() {
@@ -39,7 +48,7 @@ public class Chat {
             BufferedReader reader =
                 new BufferedReader(
                     new FileReader(
-                        Analise.class.getClassLoader().getResource("").getFile() + "chat.txt"
+                        Analise.class.getClassLoader().getResource("").getFile() + FILE_NAME
                     )
                 )
         ) {
