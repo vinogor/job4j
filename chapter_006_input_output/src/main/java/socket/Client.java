@@ -8,9 +8,11 @@ import java.util.Scanner;
 public class Client {
 
     private final Socket socket;
+    private final InputStream inForConsole;
 
-    public Client(Socket socket) {
+    public Client(Socket socket, InputStream inputStream) {
         this.socket = socket;
+        this.inForConsole = inputStream;
     }
 
     public void start() throws IOException {
@@ -22,17 +24,18 @@ public class Client {
         PrintWriter out = new PrintWriter(outputStream, true);
         BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
 
-        Scanner console = new Scanner(System.in);
+//        InputStream inForConsole = System.in;
+        Scanner console = new Scanner(inForConsole);
 
         System.out.println("начало работы КЛИЕНТА...");
         System.out.println();
 
-        String myMsg;
+        String clientMsg;
         do {
-            System.out.print("Введите команду: ");
-            myMsg = console.nextLine();
+            System.out.println("Введите команду: ");
+            clientMsg = console.nextLine();
 
-            out.println(myMsg);
+            out.println(clientMsg);
             String str;
 
             // позволяент получать сообщения в несколько строк
@@ -40,7 +43,8 @@ public class Client {
             while (!(str = in.readLine()).isEmpty()) {
                 System.out.println("пришёл ответ сервера: " + str);
             }
-        } while (!myMsg.equals("пока"));
+        } while (!"пока".equals(clientMsg));
+        out.println("выключение клиента");
         System.out.println("выключение клиента");
     }
 
@@ -53,7 +57,7 @@ public class Client {
         System.out.println("подключаемся к серверу...");
         Socket socket = new Socket(inetAddress, port);
 
-        Client client = new Client(socket);
+        Client client = new Client(socket, System.in);
         client.start();
     }
 }
