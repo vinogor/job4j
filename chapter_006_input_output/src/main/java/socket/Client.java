@@ -53,6 +53,8 @@ public class Client {
 
         System.out.println("получаем IP адрес из строки...");
         InetAddress inetAddress = InetAddress.getByName(ip);
+//        InetAddress inetAddress = InetAddress.getLocalHost();
+//        System.out.println(inetAddress);
         System.out.println("подключаемся к серверу...");
         Socket socket = new Socket(inetAddress, port);
 
