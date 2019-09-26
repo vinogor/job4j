@@ -24,7 +24,6 @@ public class Client {
         PrintWriter out = new PrintWriter(outputStream, true);
         BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
 
-//        InputStream inForConsole = System.in;
         Scanner console = new Scanner(inForConsole);
 
         System.out.println("начало работы КЛИЕНТА...");
@@ -38,7 +37,7 @@ public class Client {
             out.println(clientMsg);
             String str;
 
-            // позволяент получать сообщения в несколько строк
+            // позволяет получать сообщения в несколько строк
             // окончание сообщения - пустая строка
             while (!(str = in.readLine()).isEmpty()) {
                 System.out.println("пришёл ответ сервера: " + str);
