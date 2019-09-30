@@ -23,6 +23,7 @@
         <module>chapter_004</module>
         <module>chapter_005_collection_pro</module>
         <module>chapter_006_input_output</module>
+        <module>chapter_007_data_base</module>
     </modules>
 
     <dependencies>
