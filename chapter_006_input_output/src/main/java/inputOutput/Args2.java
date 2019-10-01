@@ -41,14 +41,18 @@ public class Args2 {
 
     public String getDir() throws Exception {
         if (!hashArgs.containsKey("-d")) {
-            throw new Exception("arg -d undefined");
+            System.out.println("ERROR: arg -d undefined (directory for search)");
+            System.out.println("    restart program with arg like \"-d c:\\directory\\\" ");
+            return null;
         }
         return hashArgs.get("-d");
     }
 
     public String getName() throws Exception {
         if (!hashArgs.containsKey("-n")) {
-            throw new Exception("arg -n undefined");
+            System.out.println("ERROR: arg -n undefined (file name or mask for search)");
+            System.out.println("    restart program with arg like \"-n file_name.ext\" or \"-n *.ext\" ");
+            return null;
         }
         return hashArgs.get("-n");
     }
@@ -59,7 +63,12 @@ public class Args2 {
         boolean r = hashArgs.containsKey("-r");
 
         if (!m && !f && !r) {
-            throw new Exception("type of search undefined");
+            System.out.println("ERROR: type of search undefined");
+            System.out.println("    restart program with one of args below");
+            System.out.println("        -m - to search by Mask");
+            System.out.println("        -f - to search by Full file name");
+            System.out.println("        -r - to search by Regular expression");
+            return null;
         }
 
         if (m) {
@@ -73,7 +82,9 @@ public class Args2 {
 
     public String getOutput() throws Exception {
         if (!hashArgs.containsKey("-o")) {
-            throw new Exception("arg -o undefined");
+            System.out.println("ERROR: arg -o undefined (output file name)");
+            System.out.println("    restart program with arg like \"-o file_name.ext\" ");
+            return null;
         }
         return hashArgs.get("-o");
     }
