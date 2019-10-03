@@ -28,7 +28,7 @@ public class StartUITest {
 
     private final String nextLine = System.lineSeparator();
 
-    private Tracker tracker;
+    private ITracker tracker;
     private Item item1;
     private Item item2;
     private Item item3;

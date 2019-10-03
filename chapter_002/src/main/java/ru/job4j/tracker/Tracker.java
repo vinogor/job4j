@@ -11,7 +11,7 @@ import java.util.Random;
  * @version 1
  * @since 29.05.2019
  */
-public class Tracker {
+public class Tracker implements ITracker {
 
     private List<Item> items = new ArrayList<>();
     private static final Random RND = new Random();

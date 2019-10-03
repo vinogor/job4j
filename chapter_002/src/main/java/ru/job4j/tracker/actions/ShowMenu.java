@@ -1,5 +1,6 @@
 package ru.job4j.tracker.actions;
 
+import ru.job4j.tracker.ITracker;
 import ru.job4j.tracker.MenuTracker;
 import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.Tracker;
@@ -16,7 +17,7 @@ public class ShowMenu extends BaseAction implements UserAction {
     }
     
     @Override
-    public void execute(Input input, Tracker tracker) {
+    public void execute(Input input, ITracker tracker) {
         menuTracker.show();
     }
 }

@@ -16,7 +16,7 @@ import java.util.function.Consumer;
 public class StartUI {
     
     private final Input input;
-    private final Tracker tracker;
+    private final ITracker tracker;
     
     private boolean doContinueWork = true;
     private int[] range;
@@ -29,7 +29,7 @@ public class StartUI {
      * @param input   data input.
      * @param tracker ticket storage.
      */
-    public StartUI(Input input, Tracker tracker, Consumer<String> output) {
+    public StartUI(Input input, ITracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
         this.output = output;
@@ -85,7 +85,7 @@ public class StartUI {
 //            }
 //
 //            @Override
-//            public void execute(Input input, Tracker tracker) {
+//            public void execute(Input input, ITracker tracker) {
 //                // todo
 //            }
 //

@@ -15,6 +15,11 @@ public class Item {
         this.time = time;
     }
 
+    public Item(String id, String name, String decs, long time) {
+        this(name, decs, time);
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }
