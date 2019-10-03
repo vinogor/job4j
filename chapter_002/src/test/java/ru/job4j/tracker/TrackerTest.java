@@ -20,7 +20,7 @@ public class TrackerTest {
     private static final String TESTNAME2 = "test2";
     private static final String TESTNAME3 = "test3";
 
-    private Tracker tracker;
+    private ITracker tracker;
     private Item item1;
     private Item item2;
     private Item item3;
@@ -65,15 +65,15 @@ public class TrackerTest {
         tracker.add(item2);
         tracker.add(item3);
 
-        ArrayList<Item> result = tracker.findAll();
+        List<Item> result = tracker.findAll();
 //        assertThat(result, is(new ArrayList<Item>(){item1, item2, item3}));
         assertThat(result, is(new ArrayList<>(Arrays.asList(item1, item2, item3))));
     }
 
     @Test
     public void findAll2() {
-        Tracker tracker = new Tracker();
-        ArrayList<Item> result = tracker.findAll();
+        ITracker tracker = new Tracker();
+        List<Item> result = tracker.findAll();
 //        assertThat(result, is(new Item[0]));
         assertThat(result, is(new ArrayList<>()));
     }

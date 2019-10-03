@@ -1,8 +1,8 @@
 package ru.job4j.tracker.actions;
 
+import ru.job4j.tracker.ITracker;
 import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.Item;
-import ru.job4j.tracker.Tracker;
 
 import java.util.function.Consumer;
 
@@ -13,7 +13,7 @@ public class AddItem extends BaseAction implements UserAction {
     }
 
     @Override
-    public void execute(Input input, Tracker tracker) {
+    public void execute(Input input, ITracker tracker) {
 
         output.accept("------------ Добавление новой заявки --------------");
         String name = input.ask("Введите имя заявки: ");

@@ -1,5 +1,6 @@
 package ru.job4j.tracker.actions;
 
+import ru.job4j.tracker.ITracker;
 import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
@@ -13,7 +14,7 @@ public class FindByIdItem extends BaseAction implements UserAction {
     }
     
     @Override
-    public void execute(Input input, Tracker tracker) {
+    public void execute(Input input, ITracker tracker) {
         output.accept("------------ Поиск заявки по id -------------------");
         String id = input.ask("Введите id заявки: ");
         Item result = tracker.findItemById(id);
