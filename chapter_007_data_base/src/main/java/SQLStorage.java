@@ -1,11 +1,7 @@
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 
 public class SQLStorage {
-
-    private static final Logger log = LoggerFactory.getLogger(SQLStorage.class);
 
     public static void main(String[] args) {
 
@@ -100,14 +96,12 @@ public class SQLStorage {
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            log.error(e.getMessage(), e);
         } finally {
             if (conn != null) {
                 try {
                     conn.close();
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
-                    log.error(e.getMessage(), e);
                 }
             }
         }
