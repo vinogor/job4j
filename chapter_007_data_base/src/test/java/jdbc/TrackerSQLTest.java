@@ -18,10 +18,6 @@ public class TrackerSQLTest {
 
     private TrackerSQL sql;
 
-    private final static String ID_1 = "id_1";
-    private final static String ID_2 = "id_2";
-    private final static String ID_3 = "id_3";
-    
     private final static String NAME_1 = "name_1";
     private final static String NAME_2 = "name_2";
     private final static String NAME_3 = "name_3";
@@ -48,47 +44,36 @@ public class TrackerSQLTest {
     public void addTest01() {
         sql.init();
         truncateTable();
-        Item item = sql.add(new Item(ID_1, NAME_1, DESC_1, TIME_1));
-        assertThat(item.getId(), is(ID_1));
-    }
-
-    @Test
-    public void addTest02() {
-        sql.init();
-        truncateTable();
-        sql.add(new Item(ID_1, NAME_1, DESC_1, TIME_1));
-        Item item = sql.add(new Item(ID_1, NAME_1, DESC_1, TIME_1));
-        assertThat(item, is(nullValue()));
+        Item item = sql.add(new Item(NAME_1, DESC_1, TIME_1));
+        assertThat(item, is(new Item(item.getId(), NAME_1, DESC_1, TIME_1)));
     }
 
     @Test
     public void deleteTest01() {
         sql.init();
         truncateTable();
-
-        sql.add(new Item(ID_1, NAME_1, DESC_1, TIME_1));
-        sql.add(new Item(ID_2, NAME_2, DESC_2, TIME_2));
-        sql.add(new Item(ID_3, NAME_3, DESC_3, TIME_3));
-
-        assertThat(sql.delete(ID_1), is(true));
+        sql.add(new Item(NAME_1, DESC_1, TIME_1));
+        Item item = sql.add(new Item(NAME_2, DESC_2, TIME_2));
+        sql.add(new Item(NAME_3, DESC_3, TIME_3));
+        assertThat(sql.delete(item.getId()), is(true));
     }
 
     @Test
     public void deleteTest02() {
         sql.init();
         truncateTable();
-        sql.add(new Item(ID_1, NAME_1, DESC_1, TIME_1));
-        sql.add(new Item(ID_2, NAME_2, DESC_2, TIME_2));
-        assertThat(sql.delete(ID_3), is(false));
+        sql.add(new Item(NAME_1, DESC_1, TIME_1));
+        Item item = sql.add(new Item(NAME_2, DESC_2, TIME_2));
+        assertThat(sql.delete(item.getId()+1), is(false));
     }
 
     @Test
     public void replaceTest01() {
         sql.init();
         truncateTable();
-        sql.add(new Item(ID_1, NAME_1, DESC_1, TIME_1));
-        sql.add(new Item(ID_2, NAME_2, DESC_2, TIME_2));
-        boolean result = sql.replace(ID_1, new Item(ID_1, NAME_2, DESC_2, TIME_2));
+        Item item1 = sql.add(new Item(NAME_1, DESC_1, TIME_1));
+        Item item2 = sql.add(new Item(NAME_2, DESC_2, TIME_2));
+        boolean result = sql.replace(item1.getId(), item2);
         assertThat(result, is(true));
     }
 
@@ -96,9 +81,9 @@ public class TrackerSQLTest {
     public void replaceTest02() {
         sql.init();
         truncateTable();
-        sql.add(new Item(ID_1, NAME_1, DESC_1, TIME_1));
-        sql.add(new Item(ID_2, NAME_2, DESC_2, TIME_2));
-        boolean result = sql.replace(ID_3, new Item(ID_1, NAME_2, DESC_2, TIME_2));
+        Item item1 = sql.add(new Item(NAME_1, DESC_1, TIME_1));
+        Item item2 = sql.add(new Item(NAME_2, DESC_2, TIME_2));
+        boolean result = sql.replace(item2.getId() + 1, item1);
         assertThat(result, is(false));
     }
 
@@ -106,12 +91,12 @@ public class TrackerSQLTest {
     public void findAllTest01() {
         sql.init();
         truncateTable();
-        sql.add(new Item(ID_1, NAME_1, DESC_1, TIME_1));
-        sql.add(new Item(ID_2, NAME_2, DESC_2, TIME_2));
+        Item item1 = sql.add(new Item(NAME_1, DESC_1, TIME_1));
+        Item item2 = sql.add(new Item(NAME_2, DESC_2, TIME_2));
         List<Item> result = sql.findAll();
         List<Item> expect = new ArrayList<>();
-        expect.add(new Item(ID_1, NAME_1, DESC_1, TIME_1));
-        expect.add(new Item(ID_2, NAME_2, DESC_2, TIME_2));
+        expect.add(item1);
+        expect.add(item2);
         assertThat(result, is(expect));
     }
 
@@ -119,11 +104,11 @@ public class TrackerSQLTest {
     public void findItemsByNameTest01() {
         sql.init();
         truncateTable();
-        sql.add(new Item(ID_1, NAME_1, DESC_1, TIME_1));
-        sql.add(new Item(ID_2, NAME_2, DESC_2, TIME_2));
+        Item item1 = sql.add(new Item(NAME_1, DESC_1, TIME_1));
+        sql.add(new Item(NAME_2, DESC_2, TIME_2));
         List<Item> result = sql.findItemsByName(NAME_1);
         List<Item> expect = new ArrayList<>();
-        expect.add(new Item(ID_1, NAME_1, DESC_1, TIME_1));
+        expect.add(item1);
         assertThat(result, is(expect));
     }
 
@@ -131,12 +116,12 @@ public class TrackerSQLTest {
     public void findItemsByNameTest2() {
         sql.init();
         truncateTable();
-        sql.add(new Item(ID_1, NAME_1, DESC_1, TIME_1));
-        sql.add(new Item(ID_2, NAME_1, DESC_2, TIME_2));
+        Item item1 = sql.add(new Item(NAME_1, DESC_1, TIME_1));
+        Item item2 = sql.add(new Item(NAME_1, DESC_2, TIME_2));
         List<Item> result = sql.findItemsByName(NAME_1);
         List<Item> expect = new ArrayList<>();
-        expect.add(new Item(ID_1, NAME_1, DESC_1, TIME_1));
-        expect.add(new Item(ID_2, NAME_1, DESC_2, TIME_2));
+        expect.add(item1);
+        expect.add(item2);
         assertThat(result, is(expect));
     }
 
@@ -144,8 +129,8 @@ public class TrackerSQLTest {
     public void findItemsByNameTest3() {
         sql.init();
         truncateTable();
-        sql.add(new Item(ID_1, NAME_1, DESC_1, TIME_1));
-        sql.add(new Item(ID_2, NAME_1, DESC_2, TIME_2));
+        sql.add(new Item(NAME_1, DESC_1, TIME_1));
+        sql.add(new Item(NAME_1, DESC_2, TIME_2));
         List<Item> result = sql.findItemsByName(NAME_2);
         List<Item> expect = new ArrayList<>();
         assertThat(result, is(expect));
@@ -155,23 +140,21 @@ public class TrackerSQLTest {
     public void findItemByIdTest01() {
         sql.init();
         truncateTable();
-        sql.add(new Item(ID_1, NAME_1, DESC_1, TIME_1));
-        sql.add(new Item(ID_2, NAME_2, DESC_2, TIME_2));
-        Item result = sql.findItemById(ID_1);
-        assertThat(result, is(new Item(ID_1, NAME_1, DESC_1, TIME_1)));
+        Item item = sql.add(new Item(NAME_1, DESC_1, TIME_1));
+        sql.add(new Item(NAME_2, DESC_2, TIME_2));
+        Item result = sql.findItemById(item.getId());
+        assertThat(result, is(item));
     }
-
 
     @Test
     public void findItemByIdTest02() {
         sql.init();
         truncateTable();
-        sql.add(new Item(ID_1, NAME_1, DESC_1, TIME_1));
-        sql.add(new Item(ID_2, NAME_2, DESC_2, TIME_2));
-        Item result = sql.findItemById(ID_3);
+        sql.add(new Item(NAME_1, DESC_1, TIME_1));
+        Item item = sql.add(new Item(NAME_2, DESC_2, TIME_2));
+        Item result = sql.findItemById(item.getId() + 1);
         assertThat(result, is(nullValue()));
     }
-
 
     @After
     public void tearDown() {

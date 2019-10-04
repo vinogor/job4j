@@ -15,7 +15,6 @@ import java.util.Random;
 public class TrackerSQL implements ITracker, AutoCloseable {
 
     private Connection connection = null;
-    private static final Random RND = new Random();
 
     // получаем логин пароль ссылку на БД
     // подключаемся к БД, получаем коннект
@@ -32,8 +31,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             // если с таким именем не существует - создаём
             try (PreparedStatement ps = connection.prepareStatement(
                 "CREATE TABLE IF NOT EXISTS tracker.public.items(" +
-                    "id_pkey      SERIAL PRIMARY KEY," +
-                    "id           VARCHAR(30) UNIQUE," +
+                    "id      SERIAL PRIMARY KEY," +
                     "name         VARCHAR(30)," +
                     "describe     TEXT," +
                     "time         TIMESTAMP" +
@@ -49,22 +47,28 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         return this.connection != null;
     }
 
-    // если Item с таким id уже есть, то возварщает null
     @Override
     public Item add(Item item) {
         String sql =
-            "INSERT INTO tracker.public.items(id, name, describe, time) " +
-                "VALUES(?, ?, ?, ?); ";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            // id генерится случайно в момент добавления в БД
-            //  ps.setString(1, String.valueOf(RND.nextInt() + System.currentTimeMillis()));
-            ps.setString(1, item.getId());
-            ps.setString(2, item.getName());
-            ps.setString(3, item.getDecs());
-            ps.setTimestamp(4, new Timestamp(item.getTime()));
+            "INSERT INTO tracker.public.items(name, describe, time) " +
+                "VALUES(?, ?, ?); ";
+        try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, item.getName());
+            ps.setString(2, item.getDecs());
+            ps.setTimestamp(3, new Timestamp(item.getTime()));
             ps.executeUpdate();
             System.out.println("    строка добавлена");
-            return item;
+
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int key = generatedKeys.getInt(1);
+                    System.out.println("    id добавленной записи: " + key);
+                    item.setId(String.valueOf(key));
+                    return item;
+                }
+            } catch (SQLException e) {
+                System.out.println("    ошибка при попытке получить сгенерированный ключ");
+            }
         } catch (SQLException e) {
             System.out.println("    ошибка при попытке добавить");
         }
@@ -76,7 +80,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         String sql =
             "DELETE FROM tracker.public.items WHERE id = ? ";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, id);
+            ps.setInt(1, Integer.parseInt(id));
             int delRows = ps.executeUpdate();
             if (delRows == 1) {
                 System.out.println("    строка удалена");
@@ -97,7 +101,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             ps.setString(1, item.getName());
             ps.setString(2, item.getDecs());
             ps.setTimestamp(3, new Timestamp(item.getTime()));
-            ps.setString(4, id);
+            ps.setInt(4, Integer.parseInt(id));
 
             int updRows = ps.executeUpdate();
             if (updRows == 1) {
@@ -123,7 +127,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             List<Item> list = new ArrayList<>();
             while (rs.next()) {
                 list.add(new Item(
-                    rs.getString("id"),
+                    String.valueOf(rs.getInt("id")),
                     rs.getString("name"),
                     rs.getString("describe"),
                     rs.getTimestamp("time").getTime()
@@ -146,7 +150,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
                 List<Item> list = new ArrayList<>();
                 while (rs.next()) {
                     list.add(new Item(
-                        rs.getString("id"),
+                        String.valueOf(rs.getInt("id")),
                         rs.getString("name"),
                         rs.getString("describe"),
                         rs.getTimestamp("time").getTime()
@@ -165,12 +169,12 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         String sql =
             "SELECT * FROM tracker.public.items WHERE id = ? ";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, id);
+            ps.setInt(1, Integer.parseInt(id));
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     System.out.println("    item найден");
                     return new Item(
-                        rs.getString("id"),
+                        String.valueOf(rs.getInt("id")),
                         rs.getString("name"),
                         rs.getString("describe"),
                         rs.getTimestamp("time").getTime()
