@@ -8,10 +8,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.Random;
 
 // Реализовать методы интефейса ITracker. Храниться и извлекать все данные нужно из базы данных.
 // Предусмотреть возможность, что структуры в базе еще нет. И вам нужно ее создать при старте.
+//  jdbc:postgresql://localhost:5432/postgres
+
 public class TrackerSQL implements ITracker, AutoCloseable {
 
     private Connection connection = null;
@@ -40,6 +41,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
                 ps.execute();
             } catch (SQLException e) {
                 System.out.println("    ошибка при попытке создать таблицу или проверить её существование");
+                e.printStackTrace();
             }
         } catch (Exception e) {
             throw new IllegalStateException(e);
@@ -68,9 +70,11 @@ public class TrackerSQL implements ITracker, AutoCloseable {
                 }
             } catch (SQLException e) {
                 System.out.println("    ошибка при попытке получить сгенерированный ключ");
+                e.printStackTrace();
             }
         } catch (SQLException e) {
             System.out.println("    ошибка при попытке добавить");
+            e.printStackTrace();
         }
         return null;
     }
@@ -89,6 +93,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             System.out.println("    данного id в базе не найдено");
         } catch (SQLException e) {
             System.out.println("    ошибка удаления");
+            e.printStackTrace();
         }
         return false;
     }
@@ -112,6 +117,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
         } catch (SQLException e) {
             System.out.println("    ошибка изменения");
+            e.printStackTrace();
         }
         return false;
     }
@@ -136,6 +142,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             return list;
         } catch (SQLException e) {
             System.out.println("    ошибка получения записей таблицы");
+            e.printStackTrace();
         }
         return null;
     }
@@ -160,6 +167,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             }
         } catch (SQLException e) {
             System.out.println("    ошибка получения записей таблицы");
+            e.printStackTrace();
         }
         return null;
     }
@@ -185,6 +193,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             }
         } catch (SQLException e) {
             System.out.println("    ошибка поиска");
+            e.printStackTrace();
         }
         return null;
     }
