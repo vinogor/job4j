@@ -3,6 +3,14 @@ language: java
 jdk:
   - openjdk11
 
+# используемая БД
+services:
+  - postgresql
+
+# создадим БД перед инсталом
+before_install:
+  - psql -c 'create database tracker;' -U postgres
+
 # используем режим обычного пользователя для сборки проекта.
 sudo: false
 
