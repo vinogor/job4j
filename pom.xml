@@ -222,6 +222,7 @@
                 <db.url>jdbc:postgresql://localhost/tracker</db.url>
                 <db.username>postgres</db.username>
 <!--                почему-то не надо указывать пароль -->
+<!--                <db.password>1234</db.password>-->
                 <db.password></db.password>
                 <db.driver>org.postgresql.Driver</db.driver>
             </properties>

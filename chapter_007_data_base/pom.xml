@@ -27,15 +27,11 @@
                 <version>3.6.2</version>
                 <configuration>
                     <changeLogFile>${basedir}/db/master.xml</changeLogFile>
-                    <!-- ссылки на срабатывают (((  -->
-                    <!-- <url>${db.url}</url>-->
-                    <!-- <driver>${db.driver}</driver>-->
-                    <!-- <username>${db.username}</username>-->
-                    <!-- <password>${db.password}</password>-->
-                    <url>jdbc:postgresql://127.0.0.1:5432/tracker</url>
-                    <username>postgres</username>
-                    <password>1234</password>
-                    <driver>org.postgresql.Driver</driver>
+                    <!-- чтобы ссылки заработали, надо указать профиль travis в мавене  -->
+                     <url>${db.url}</url>
+                     <driver>${db.driver}</driver>
+                     <username>${db.username}</username>
+                     <password>${db.password}</password>
                 </configuration>
                 <executions>
                     <execution>
