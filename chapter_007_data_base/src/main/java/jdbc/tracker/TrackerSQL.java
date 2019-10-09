@@ -1,13 +1,11 @@
-package jdbc;
+package jdbc.tracker;
 
 import ru.job4j.tracker.ITracker;
 import ru.job4j.tracker.Item;
 
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 // Реализовать методы интефейса ITracker. Храниться и извлекать все данные нужно из базы данных.
 // Предусмотреть возможность, что структуры в базе еще нет. И вам нужно ее создать при старте.
@@ -15,11 +13,15 @@ import java.util.Properties;
 
 public class TrackerSQL implements ITracker, AutoCloseable {
 
-    private Connection connection = null;
+    private final Connection connection;
+
+    public TrackerSQL(Connection connection) {
+        this.connection = connection;
+    }
 
     // получаем логин пароль ссылку на БД
     // подключаемся к БД, получаем коннект
-    public boolean init() {
+/*    public boolean init() {
         try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("app.properties")) {
             Properties config = new Properties();
             config.load(in);
@@ -47,7 +49,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             throw new IllegalStateException(e);
         }
         return this.connection != null;
-    }
+    }*/
 
     @Override
     public Item add(Item item) {
@@ -201,34 +203,5 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public void close() throws Exception {
         connection.close();
-    }
-
-    public Connection getConnection() {
-        return connection;
-    }
-
-    public static void main(String[] args) {
-        TrackerSQL trackerSQL = new TrackerSQL();
-        trackerSQL.init();
-//        trackerSQL.add(new Item("test name1", "test desc1", System.currentTimeMillis()));
-//        trackerSQL.add(new Item("test name1", "test desc1", System.currentTimeMillis()));
-//        trackerSQL.add(new Item("test name1", "test desc1", System.currentTimeMillis()));
-//        trackerSQL.add(new Item("test name1", "test desc1", System.currentTimeMillis()));
-
-//        trackerSQL.delete("1572089676094");
-
-//        trackerSQL.findItemById("1571135885277");
-
-//        trackerSQL.replace("1570903021782", new Item("test name NEW", "test desc1 NEW ", System.currentTimeMillis()));
-
-//        List<Item> all = trackerSQL.findAll();
-//        for (Item item : all) {
-//            System.out.println(item);
-//        }
-
-        List<Item> all = trackerSQL.findItemsByName("test name NEW");
-        for (Item item : all) {
-            System.out.println(item);
-        }
     }
 }
