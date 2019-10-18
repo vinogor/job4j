@@ -14,15 +14,15 @@ import java.util.function.Consumer;
  * @since 29.05.2019
  */
 public class StartUI {
-    
+
     private final Input input;
     private final ITracker tracker;
-    
+
     private boolean doContinueWork = true;
     private int[] range;
 
     private final Consumer<String> output;
-    
+
     /**
      * Field initialization constructor.
      *
@@ -36,38 +36,25 @@ public class StartUI {
     }
 
     /**
-     * Start program.
-     *
-     * @param args arguments.
-     */
-    public static void main(String[] args) {
-        Consumer<String> output = System.out::println;
-        new StartUI(new ValidateInput(new ConsoleInput(output), output), new Tracker(), output).init();
-//        new StartUI(new ValidateInput(new StubInput(new String[]{"invalid", "7"})), new Tracker()).init();
-//        new StartUI(new ConsoleInput(), new Tracker()).init();
-//        new StartUI(new StubInput(new String[]{"1", "name1", "disr1", "7"}), new Tracker()).init();
-    }
-    
-    /**
      * The main cycle of the program.
      */
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker, output);
         menu.fillActions(this);
-        
+
         fillRange(menu);
-        
+
         int key;
         do {
             key = input.ask("Введите пункт меню (0.." + (menu.getActionsLength() - 1) + "): ", range);
             menu.select(key);
         } while (this.doContinueWork);
     }
-    
+
     public void stop() {
         this.doContinueWork = false;
     }
-    
+
     private void fillRange(MenuTracker menu) {
         int actionsLength = menu.getActionsLength();
         range = new int[actionsLength];
@@ -75,7 +62,23 @@ public class StartUI {
             range[i] = i;
         }
     }
-    
+
+    /**
+     * Start program.
+     *
+     * @param args arguments.
+     */
+    public static void main(String[] args) {
+        Consumer<String> output = System.out::println;
+        new StartUI(
+            new ValidateInput(new ConsoleInput(output), output),
+            new Tracker(), output
+        ).init();
+//        new StartUI(new ValidateInput(new StubInput(new String[]{"invalid", "7"})), new Tracker()).init();
+//        new StartUI(new ConsoleInput(), new Tracker()).init();
+//        new StartUI(new StubInput(new String[]{"1", "name1", "disr1", "7"}), new Tracker()).init();
+    }
+
 //    ОТКЛЮЧИЛ ПОКА ЧТОБЫ НЕ ПЕРЕДЕЛЫВАТЬ ТЕСТЫ - пример анонимного класса
 //
 //        UserAction deleteAction = new UserAction() {
