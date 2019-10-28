@@ -1,8 +1,29 @@
 package strategy.places;
 
-public class Shop extends MarketPlace {
+import strategy.Food;
+import strategy.Store;
+
+import java.time.LocalDate;
+
+public class Shop extends MarketPlace implements Store {
     @Override
     public String toString() {
         return "Shop{ \n    " + super.toString() + " }";
+    }
+
+    @Override
+    public boolean accept(Food food) {
+
+        long nowDays = LocalDate.of(2019, 10, 25).toEpochDay();
+        long expireDays = food.getExpireDate().toEpochDay();
+        long createDays = food.getCreateDate().toEpochDay();
+        long leftProc = (nowDays - createDays) * 100 / (expireDays - createDays);
+
+        return leftProc > 25 && leftProc <= 75;
+    }
+
+    @Override
+    public void add(Food food) {
+        stock.put(food.getName(), food);
     }
 }

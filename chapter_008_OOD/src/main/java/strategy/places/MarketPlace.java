@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class MarketPlace {
 
-    private Map<String, Food> stock = new LinkedHashMap<>();
+    protected Map<String, Food> stock = new LinkedHashMap<>();
 
     public Food takeFoodByName(String name) {
         Food food = new Food(stock.get(name));
