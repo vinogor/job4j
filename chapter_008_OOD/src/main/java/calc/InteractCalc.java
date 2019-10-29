@@ -15,32 +15,15 @@ public class InteractCalc extends Calculator {
 
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private List<Action> actions = new ArrayList<>();
-    private List<Action> additionalActions;
-
-    public InteractCalc() {
-    }
-
-    public InteractCalc(List<Action> additionalActions) {
-        this.additionalActions = additionalActions;
-    }
 
     protected void start() {
-        fillActions();
         printMenu();
         mainDialog();
         stop();
     }
 
-    private void fillActions() {
-        actions.add(new Add2(this));
-        actions.add(new Add3(this));
-        actions.add(new Subtract(this));
-        actions.add(new Div(this));
-        actions.add(new Multiple(this));
-
-        if (additionalActions != null) {
-            actions.addAll(additionalActions);
-        }
+    public void fillActions(List<Action> actions) {
+        this.actions.addAll(actions);
     }
 
     private void printMenu() {
@@ -111,6 +94,17 @@ public class InteractCalc extends Calculator {
     }
 
     public static void main(String[] args) {
-        new InteractCalc().start();
+
+        InteractCalc interactCalc = new InteractCalc();
+
+        List<Action> actions = new ArrayList<>();
+        actions.add(new Add2(interactCalc));
+        actions.add(new Add3(interactCalc));
+        actions.add(new Subtract(interactCalc));
+        actions.add(new Div(interactCalc));
+        actions.add(new Multiple(interactCalc));
+
+        interactCalc.fillActions(actions);
+        interactCalc.start();
     }
 }

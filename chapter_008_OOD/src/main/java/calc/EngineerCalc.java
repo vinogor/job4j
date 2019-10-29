@@ -1,21 +1,25 @@
 package calc;
 
-import calc.actions.CoSinus;
-import calc.actions.Sinus;
+import calc.actions.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EngineerCalc extends InteractCalc {
 
-    public EngineerCalc(List<Action> additionalActions) {
-        super(additionalActions);
-    }
-
     public static void main(String[] args) {
-        List<Action> additionalActions = new ArrayList<>();
-        additionalActions.add(new Sinus());
-        additionalActions.add(new CoSinus());
-        new EngineerCalc(additionalActions).start();
+        EngineerCalc engineerCalc = new EngineerCalc();
+
+        List<Action> actions = new ArrayList<>();
+        actions.add(new Add2(engineerCalc));
+        actions.add(new Add3(engineerCalc));
+        actions.add(new Subtract(engineerCalc));
+        actions.add(new Div(engineerCalc));
+        actions.add(new Multiple(engineerCalc));
+        actions.add(new Sinus());
+        actions.add(new CoSinus());
+
+        engineerCalc.fillActions(actions);
+        engineerCalc.start();
     }
 }
