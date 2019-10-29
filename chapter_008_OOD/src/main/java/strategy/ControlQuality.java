@@ -12,8 +12,22 @@ public class ControlQuality {
     private Trash trash = new Trash();
 
     private void start(MarketPlace marketPlace) {
+        marketPlace.setNowDays(LocalDate.of(2019, 10, 25).toEpochDay());
         distribute(marketPlace);
         printAllMarketPlaces();
+
+        System.out.println();
+
+        marketPlace.setNowDays(LocalDate.of(2020, 10, 25).toEpochDay());
+        resort(marketPlace);
+        printAllMarketPlaces();
+    }
+
+    private void cleanAllStores() {
+        warehouse.clean();
+        shop.clean();
+        shopDiscount.clean();
+        trash.clean();
     }
 
     private void distribute(MarketPlace marketPlace) {
@@ -28,6 +42,11 @@ public class ControlQuality {
                 trash.add(food);
             }
         }
+    }
+
+    private void resort(MarketPlace marketPlace) {
+        cleanAllStores();
+        distribute(marketPlace);
     }
 
     private void printAllMarketPlaces() {

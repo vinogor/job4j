@@ -9,12 +9,7 @@ public class ShopDiscount extends Shop implements Store {
 
     @Override
     public boolean accept(Food food) {
-
-        long nowDays = LocalDate.of(2019, 10, 25).toEpochDay();
-        long expireDays = food.getExpireDate().toEpochDay();
-        long createDays = food.getCreateDate().toEpochDay();
-        long leftProc = (nowDays - createDays) * 100 / (expireDays - createDays);
-
+        int leftProc = getLeftProc(food);
         return leftProc > 75 && leftProc <= 100;
     }
 
