@@ -1,9 +1,8 @@
 package strategy.places;
 
 import strategy.Food;
-import strategy.Store;
 
-public class Trash extends MarketPlace implements Store {
+public class Trash extends MarketPlace  {
     @Override
     public String toString() {
         return "Trash{ \n    " + super.toString() + " }";
