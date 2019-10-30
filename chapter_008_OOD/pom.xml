@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>capter_008_OOD</artifactId>
+    <artifactId>chapter_008_OOD</artifactId>
     <dependencies>
         <dependency>
             <groupId>ru.job4j</groupId>

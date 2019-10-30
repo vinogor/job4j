@@ -1,73 +1,110 @@
 package calc;
 
+import calc.actions.*;
 import ru.job4j.calculator.Calculator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
-//    Используя класс Calculator.
-// 1. Сделать класс InteractCalc.
-// 2. В классе должен быть пользовательский ввод.
-// 3. Повторный выбор операции и переиспользование предыдущего вычисления.
-// 4. Проект должен следовать SRP.
+import static java.lang.Double.NaN;
 
 public class InteractCalc extends Calculator {
 
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private List<Action> actions = new ArrayList<>();
 
-    @Override
-    public double add(double first, double second) {
-        return super.add(first, second);
+    protected void start() {
+        printMenu();
+        mainDialog();
+        stop();
     }
 
-    @Override
-    public double add(double first, double second, double third) {
-        return super.add(first, second, third);
+    public void fillActions(List<Action> actions) {
+        this.actions.addAll(actions);
     }
 
-    @Override
-    public double subtract(double first, double second) {
-        return super.subtract(first, second);
+    private void printMenu() {
+        print("Доступные операции: \n");
+        printMathActions();
+        print("    0 - выход из программы \n");
+        print("   -1 - показать меню \n");
     }
 
-    @Override
-    public double div(double first, double second) {
-        return super.div(first, second);
+    private void printMathActions() {
+        for (int i = 0; i < actions.size(); i++) {
+            Action act = actions.get(i);
+            print("    " + (i + 1) + " - " + act.info() + "\n");
+        }
     }
 
-    @Override
-    public double multiple(double first, double second) {
-        return super.multiple(first, second);
+    private void mainDialog() {
+        double answer;
+        double n1;
+        double result = 0;
+        double reUse = 0;
+
+        answer = ask("введите команду: ");
+        // чекать корректность тут и в коне цикла
+
+        while (0 != answer) {
+            if (answer == -1) {
+                printMenu();
+            } else {
+                if (reUse == 1) {
+                    n1 = result;
+                    print("первое число = результат прошлого вычисления = " + n1 + "\n");
+                } else {
+                    n1 = ask("введите 1е число: ");
+                }
+
+                result = actions.get((int) answer - 1).doAction(n1);
+                print("результат вычислений: " + result + "\n");
+
+                reUse = ask("сохранить результат для дальнейших вычислений? 1 = да / иное = нет: ");
+            }
+            answer = ask("введите команду (-1 = показать меню): ");
+        }
     }
 
-    private void startDialog() {
-
-        String line = null;
-        System.out.print("введите действие: ");
+    public double ask(String msg) {
+        print(msg);
+        double result = NaN;
         try {
-            line = reader.readLine();
+            result = Double.parseDouble(reader.readLine());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        dialog(line);
+        return result;
     }
 
-    private void dialog(String line) {
-        while (!"стоп".equals(line)) {
+    private void print(String msg) {
+        System.out.print(msg);
+    }
 
-            System.out.print("введите число: ");
-            try {
-                line = reader.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    private void stop() {
+        print("завершаем работу");
+        try {
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        System.out.println("завершаем");
     }
 
     public static void main(String[] args) {
-        new InteractCalc().startDialog();
 
+        InteractCalc interactCalc = new InteractCalc();
+
+        List<Action> actions = new ArrayList<>();
+        actions.add(new Add2(interactCalc));
+        actions.add(new Add3(interactCalc));
+        actions.add(new Subtract(interactCalc));
+        actions.add(new Div(interactCalc));
+        actions.add(new Multiple(interactCalc));
+
+        interactCalc.fillActions(actions);
+        interactCalc.start();
     }
 }
