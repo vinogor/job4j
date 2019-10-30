@@ -3,65 +3,73 @@ package strategy;
 import strategy.places.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ControlQuality {
-
-    private Warehouse warehouse = new Warehouse();
-    private Shop shop = new Shop();
-    private ShopDiscount shopDiscount = new ShopDiscount();
-    private Trash trash = new Trash();
-
-    private void start(MarketPlace marketPlace) {
-        marketPlace.setNowDays(LocalDate.of(2019, 10, 25).toEpochDay());
-        distribute(marketPlace);
-        printAllMarketPlaces();
-
+    
+    private List<Store> stores;
+    private List<Food> foods;
+    
+    public ControlQuality(List<Store> stores, List<Food> foods) {
+        this.stores = stores;
+        this.foods = foods;
+    }
+    
+    private void start() {
+        
+        MarketPlace.setNowDays(LocalDate.of(2019, 10, 25).toEpochDay());
+        distribute();
+        printStores();
+        
         System.out.println();
-
-        marketPlace.setNowDays(LocalDate.of(2020, 10, 25).toEpochDay());
-        resort(marketPlace);
-        printAllMarketPlaces();
+        
+        MarketPlace.setNowDays(LocalDate.of(2021, 4, 1).toEpochDay());
+        resort();
+        printStores();
+        
     }
-
-    private void cleanAllStores() {
-        warehouse.clean();
-        shop.clean();
-        shopDiscount.clean();
-        trash.clean();
+    
+    private void resort() {
+        cleanStores();
+        distribute();
     }
-
-    private void distribute(MarketPlace marketPlace) {
-        for (Food food : marketPlace.getAll()) {
-            if (warehouse.accept(food)) {
-                warehouse.add(food);
-            } else if (shop.accept(food)) {
-                shop.add(food);
-            } else if (shopDiscount.accept(food)) {
-                shopDiscount.add(food);
-            } else {
-                trash.add(food);
+    
+    private void cleanStores() {
+        for (Store store : stores) {
+            store.clean();
+        }
+    }
+    
+    private void printStores() {
+        for (Store store : stores) {
+            System.out.println(store);
+        }
+    }
+    
+    private void addFood(Food food) {
+        for (Store store : stores) {
+            if (store.accept(food)) {
+                store.add(food);
             }
         }
     }
-
-    private void resort(MarketPlace marketPlace) {
-        cleanAllStores();
-        distribute(marketPlace);
+    
+    private void distribute() {
+        for (Food food : foods) {
+            addFood(food);
+        }
     }
-
-    private void printAllMarketPlaces() {
-        System.out.println(warehouse);
-        System.out.println(shop);
-        System.out.println(shopDiscount);
-        System.out.println(trash);
-    }
-
+    
     public static void main(String[] args) {
-
-        // склад с исходными продуктами, которые будем распределять
-        MarketPlace marketPlace = new MarketPlace();
-
-        marketPlace.put(new Food(
+        
+        List<Store> stores = new ArrayList<>();
+        stores.add(new Warehouse());
+        stores.add(new Shop());
+        stores.add(new Trash());
+        
+        List<Food> foods = new ArrayList<>();
+        foods.add(new Food(
                 "бананы",
                 LocalDate.of(2019, 9, 20),
                 LocalDate.of(2019, 10, 27),
@@ -69,8 +77,7 @@ public class ControlQuality {
                 0
             )
         );
-
-        marketPlace.put(new Food(
+        foods.add(new Food(
                 "молоко",
                 LocalDate.of(2019, 10, 20),
                 LocalDate.of(2019, 10, 24),
@@ -78,8 +85,7 @@ public class ControlQuality {
                 0
             )
         );
-
-        marketPlace.put(new Food(
+        foods.add(new Food(
                 "рис",
                 LocalDate.of(2019, 5, 3),
                 LocalDate.of(2021, 5, 3),
@@ -87,8 +93,8 @@ public class ControlQuality {
                 0
             )
         );
-
-        marketPlace.put(new Food(
+        
+        foods.add(new Food(
                 "говядина",
                 LocalDate.of(2019, 10, 18),
                 LocalDate.of(2019, 10, 28),
@@ -96,7 +102,7 @@ public class ControlQuality {
                 0
             )
         );
-
-        new ControlQuality().start(marketPlace);
+        
+        new ControlQuality(stores, foods).start();
     }
 }
