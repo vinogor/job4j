@@ -3,7 +3,9 @@ package strategy.places;
 import strategy.Food;
 import strategy.Store;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class MarketPlace implements Store {
@@ -26,7 +28,13 @@ public abstract class MarketPlace implements Store {
     public static void setNowDays(long nowDays) {
         MarketPlace.nowDays = nowDays;
     }
-    
+
+    public List<Food> takeAllStock() {
+        List<Food> foods = new ArrayList<>(stock.values());
+        stock.clear();
+        return foods;
+    }
+
     @Override
     public String toString() {
         return "stock = " + stock + " }";

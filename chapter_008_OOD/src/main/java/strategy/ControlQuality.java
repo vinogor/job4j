@@ -9,58 +9,44 @@ import java.util.List;
 public class ControlQuality {
     
     private List<Store> stores;
-    private List<Food> foods;
-    
-    public ControlQuality(List<Store> stores, List<Food> foods) {
+
+    public ControlQuality(List<Store> stores) {
         this.stores = stores;
-        this.foods = foods;
     }
-    
-    private void start() {
-        
-        MarketPlace.setNowDays(LocalDate.of(2019, 10, 25).toEpochDay());
-        distribute();
-        printStores();
-        
-        System.out.println();
-        
-        MarketPlace.setNowDays(LocalDate.of(2021, 4, 1).toEpochDay());
-        resort();
-        printStores();
-        
-    }
-    
-    private void resort() {
-        cleanStores();
-        distribute();
-    }
-    
-    private void cleanStores() {
-        for (Store store : stores) {
-            store.clean();
+
+    private void distribute(List<Food> foods) {
+        for (Food food : foods) {
+            addFood(food);
         }
     }
-    
+
     private void printStores() {
         for (Store store : stores) {
             System.out.println(store);
         }
     }
-    
+
+    private void resort() {
+        distribute(takeAllFoods());
+    }
+
+    private List<Food> takeAllFoods() {
+        List<Food> foods = new ArrayList<>();
+        for (Store store : stores) {
+            foods.addAll(store.takeAllStock());
+        }
+        return foods;
+    }
+
     private void addFood(Food food) {
         for (Store store : stores) {
             if (store.accept(food)) {
                 store.add(food);
+                break;
             }
         }
     }
-    
-    private void distribute() {
-        for (Food food : foods) {
-            addFood(food);
-        }
-    }
-    
+
     public static void main(String[] args) {
         
         List<Store> stores = new ArrayList<>();
@@ -93,7 +79,6 @@ public class ControlQuality {
                 0
             )
         );
-        
         foods.add(new Food(
                 "говядина",
                 LocalDate.of(2019, 10, 18),
@@ -102,7 +87,17 @@ public class ControlQuality {
                 0
             )
         );
-        
-        new ControlQuality(stores, foods).start();
+
+        ControlQuality control = new ControlQuality(stores);
+
+        MarketPlace.setNowDays(LocalDate.of(2019, 10, 25).toEpochDay());
+        control.distribute(foods);
+        control.printStores();
+
+        System.out.println();
+
+        MarketPlace.setNowDays(LocalDate.of(2021, 4, 1).toEpochDay());
+        control.resort();
+        control.printStores();
     }
 }
