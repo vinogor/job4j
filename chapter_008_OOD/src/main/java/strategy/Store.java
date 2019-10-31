@@ -1,12 +1,6 @@
 package strategy;
 
-// тут лучше создать интерфейс Store
-// с методом
-// boolean accept(Food food);
-// и в каждом хранилище его реализовать с учетом сроков хранения
-// и тогда при добавлении продукта можно в цикле пробежаться по хранилищам
-// и if(store.accept(food)) {store.add(food)}
-
+import java.util.List;
 
 public interface Store {
 
@@ -14,7 +8,7 @@ public interface Store {
 
     void add(Food food);
 
-    void clean();
-    
     String toString();
+
+    List<Food> takeAllStock();
 }

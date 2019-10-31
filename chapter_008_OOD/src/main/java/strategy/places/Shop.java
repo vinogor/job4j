@@ -25,9 +25,4 @@ public class Shop extends MarketPlace  {
         }
         stock.put(food.getName(), food);
     }
-
-    @Override
-    public void clean() {
-        stock.clear();
-    }
 }

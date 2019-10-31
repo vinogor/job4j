@@ -18,9 +18,4 @@ public class Warehouse extends MarketPlace  {
     public void add(Food food) {
         stock.put(food.getName(), food);
     }
-
-    @Override
-    public void clean() {
-        stock.clear();
-    }
 }
