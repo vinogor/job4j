@@ -25,6 +25,7 @@
         <module>chapter_006_input_output</module>
         <module>chapter_007_data_base</module>
         <module>chapter_008_OOD</module>
+        <module>chapter_009_GC</module>
     </modules>
 
     <dependencies>
