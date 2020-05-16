@@ -12,39 +12,48 @@ public class ParseFile {
     private File file;
 
     public synchronized void setFile(File f) {
-        file = f;
+        this.file = f;
     }
 
     public synchronized File getFile() {
-        return file;
+        return this.file;
     }
 
-    public String getContent() throws IOException {
-        InputStream i = new FileInputStream(file);
-        String output = "";
-        int data;
-        while ((data = i.read()) > 0) {
-            output += (char) data;
-        }
-        return output;
-    }
+    public synchronized String getContent() throws IOException {
 
-    public String getContentWithoutUnicode() throws IOException {
-        InputStream i = new FileInputStream(file);
-        String output = "";
-        int data;
-        while ((data = i.read()) > 0) {
-            if (data < 0x80) {
-                output += (char) data;
+        StringBuilder sb;
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+            sb = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+                sb.append('\n');
             }
         }
-        return output;
+        return sb.toString();
     }
 
-    public void saveContent(String content) throws IOException {
-        OutputStream o = new FileOutputStream(file);
-        for (int i = 0; i < content.length(); i += 1) {
-            o.write(content.charAt(i));
+    public synchronized String getContentWithoutUnicode() throws IOException {
+
+        StringBuilder sb;
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+            sb = new StringBuilder();
+
+            int data;
+            while ((data = br.read()) != -1) {
+                if (data < 0x80) { // ???
+                    sb.append((char) data);
+                }
+            }
+        }
+        return sb.toString();
+    }
+
+    public synchronized void saveContent(String content) throws IOException {
+
+        try (FileWriter writer = new FileWriter(file, false)) {
+            writer.write(content);
+            writer.flush();
         }
     }
 }
