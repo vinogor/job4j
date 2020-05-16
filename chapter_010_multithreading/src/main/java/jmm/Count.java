@@ -4,10 +4,14 @@ public class Count {
     private int value;
 
     public void increment() {
-        value++;
+        synchronized (this) {
+            value++;
+        }
     }
 
     public int get() {
-        return value;
+        synchronized (this) {
+            return value;
+        }
     }
 }
